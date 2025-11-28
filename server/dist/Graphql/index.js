@@ -1,4 +1,5 @@
 import { ApolloServer } from '@apollo/server';
+import { prisma } from '../client/db/index.js';
 async function InititApolloserver() {
     const server = new ApolloServer({
         typeDefs: ` 
