@@ -2,6 +2,7 @@
 import axios from "axios";
 import { prisma } from "../../client/db/index.js";
 import jwtServies from "../../services/jwt.js";
+import type { GraphqlContext } from "../../interface.js";
 
 export interface GoogleAuthPayload {
   iss?: string;               // issuer URL
@@ -52,6 +53,13 @@ const queries = {
       console.log("error", error)
     }
   },
+  getCurrentUser:async(parent:any,arg:any,ctx:GraphqlContext)=>{
+    const Id = ctx.user?.id
+    if(!Id) return null
+    const UserData =  await prisma.user.findUnique({where:{id:Id}})
+    return UserData
+  }
+
 };
 
 const mutation = {

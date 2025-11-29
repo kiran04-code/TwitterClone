@@ -10,6 +10,12 @@ class jwtServies {
         const token = JWT.sign(payload, jwtTokenkey);
         return token;
     }
+    static deocdToken(token) {
+        if (token) {
+            const payload = JWT.verify(token, jwtTokenkey);
+            return payload;
+        }
+    }
 }
 export default jwtServies;
 //# sourceMappingURL=jwt.js.map

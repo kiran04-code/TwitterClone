@@ -1,6 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { User } from './user/index.js';
 
+
 async function InititApolloserver() {
   const server = new ApolloServer({
     typeDefs: `

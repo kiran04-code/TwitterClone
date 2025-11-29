@@ -31,6 +31,13 @@ const queries = {
             console.log("error", error);
         }
     },
+    getCurrentUser: async (parent, arg, ctx) => {
+        const Id = ctx.user?.id;
+        if (!Id)
+            return null;
+        const UserData = await prisma.user.findUnique({ where: { id: Id } });
+        return UserData;
+    }
 };
 const mutation = {
     dummy: () => "This is just a placeholder mutation",

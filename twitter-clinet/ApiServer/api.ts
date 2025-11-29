@@ -1,4 +1,8 @@
 
 import { GraphQLClient } from "graphql-request";
-
-export const graphqlClient = new GraphQLClient("http://localhost:3003/graphql");
+const isClient = typeof window !== "undefined";
+export const graphqlClient = new GraphQLClient("http://localhost:3003/graphql",{
+    headers:()=>({
+        Authorization:isClient ? `Bearer ${window.localStorage.getItem("__twitter_token")}`:""
+    })
+});

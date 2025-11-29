@@ -7,6 +7,15 @@ export declare const User: {
             verifedGoogleToken: (parent: any, { token }: {
                 token: string;
             }) => Promise<string | undefined>;
+            getCurrentUser: (parent: any, arg: any, ctx: import("../../interface.js").GraphqlContext) => Promise<{
+                id: string;
+                email: string;
+                firstName: string;
+                LastName: string | null;
+                PrfileImage: string;
+                createAt: Date;
+                updatedAt: Date;
+            } | null>;
         };
         Mutation: {
             dummy: () => string;

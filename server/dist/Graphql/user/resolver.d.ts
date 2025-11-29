@@ -1,3 +1,4 @@
+import type { GraphqlContext } from "../../interface.js";
 export interface GoogleAuthPayload {
     iss?: string;
     azp?: string;
@@ -23,6 +24,15 @@ export declare const resolver: {
         verifedGoogleToken: (parent: any, { token }: {
             token: string;
         }) => Promise<string | undefined>;
+        getCurrentUser: (parent: any, arg: any, ctx: GraphqlContext) => Promise<{
+            id: string;
+            email: string;
+            firstName: string;
+            LastName: string | null;
+            PrfileImage: string;
+            createAt: Date;
+            updatedAt: Date;
+        } | null>;
     };
     Mutation: {
         dummy: () => string;
