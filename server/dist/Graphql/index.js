@@ -1,15 +1,23 @@
 import { ApolloServer } from '@apollo/server';
-import { prisma } from '../client/db/index.js';
+import { User } from './user/index.js';
+;
 async function InititApolloserver() {
     const server = new ApolloServer({
         typeDefs: ` 
-     type Query {
-      name:String
+     ${User.typeDefs}
+   type Query {
+        ${User.query}
+      }
+     type mutation{
+     ${User.mutation}
      }
      `,
         resolvers: {
             Query: {
-                name: () => { return "Graphql is Wroking"; }
+                ...User.resolver.Query
+            },
+            Mutation: {
+                ...User.resolver.Mutation
             }
         }
     });

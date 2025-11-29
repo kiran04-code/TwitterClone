@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../src/Graphql/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,gBAAgB,CAAC;AAG9C,iBAAe,kBAAkB,gEAgBhC;AAED,eAAe,kBAAkB,CAAA"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../src/Graphql/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,gBAAgB,CAAC;AAK9C,iBAAe,kBAAkB,gEAuBhC;AAED,eAAe,kBAAkB,CAAA"}
