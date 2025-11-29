@@ -1,7 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+import "dotenv/config";
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '../../generated/prisma/client.js'
 
-export const PrismaClients = new PrismaClient({log:["query"]})
+const connectionString = `${process.env.DATABASE_URL}`
 
-PrismaClients.user.findById({id:1})
+const adapter = new PrismaPg({ connectionString })
+const prisma = new PrismaClient({ adapter })
 
-
+export { prisma }

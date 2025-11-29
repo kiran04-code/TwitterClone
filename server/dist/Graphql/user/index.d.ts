@@ -6,8 +6,7 @@ export declare const User: {
         Query: {
             verifedGoogleToken: (parent: any, { token }: {
                 token: string;
-            }) => Promise<string>;
-            name: () => string;
+            }) => Promise<string | undefined>;
         };
         Mutation: {
             dummy: () => string;

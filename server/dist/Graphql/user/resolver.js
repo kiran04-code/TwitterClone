@@ -1,8 +1,36 @@
+import axios from "axios";
+import { prisma } from "../../client/db/index.js";
+import jwtServies from "../../services/jwt.js";
 const queries = {
     verifedGoogleToken: async (parent, { token }) => {
-        return token;
+        try {
+            const googletoken = token;
+            const GoogleAuthUrl = new URL('https://oauth2.googleapis.com/tokeninfo');
+            GoogleAuthUrl.searchParams.set('id_token', googletoken);
+            const { data } = await axios.get(GoogleAuthUrl.toString(), {
+                responseType: "json"
+            });
+            const users = await prisma.user.findUnique({ where: { email: data.email } });
+            if (!users) {
+                await prisma.user.create({
+                    data: {
+                        firstName: data.given_name,
+                        LastName: data.family_name,
+                        email: data.email,
+                        PrfileImage: data.picture
+                    }
+                });
+            }
+            const usertInDb = await prisma.user.findUnique({ where: { email: data.email } });
+            if (!usertInDb)
+                throw new Error("User with email not found");
+            const UserToken = await jwtServies.genrateToken(usertInDb);
+            return UserToken;
+        }
+        catch (error) {
+            console.log("error", error);
+        }
     },
-    name: () => "My First GraphQL Query Works 🚀",
 };
 const mutation = {
     dummy: () => "This is just a placeholder mutation",

@@ -12,7 +12,7 @@ import { Geist } from 'next/font/google';
 import LeftSideNav from '@/components/LeftSide/leftSideNav';
 import RightsideFeed from '@/components/RightSide/RightsideFeed';
 import Feeds from '@/components/Feed/Feeds';
-
+import { Toaster } from "react-hot-toast"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,9 +62,24 @@ const page = () => {
   return (
     <div className={geistSans.className}>
       <div className='grid grid-cols-12 h-screen w-screen px-40 '>
-       <LeftSideNav/>
-      <Feeds/>
-       <RightsideFeed/>
+        <Toaster
+          position="top-left"
+          toastOptions={{
+            style: {
+              background: "black",
+              color: "white",
+              fontFamily: "Inter, sans-serif", 
+              fontSize: "14px",
+              padding: "12px",
+              borderRadius: "6px",
+              border:2,
+              borderColor:"white"
+            },
+          }}
+        />
+        <LeftSideNav/>
+        <Feeds />
+        <RightsideFeed />
       </div>
     </div>
   )

@@ -1,9 +1,14 @@
 import express from "express";
+import cors from "cors";
 import { expressMiddleware } from '@as-integrations/express5';
 import InititApolloserver from "./Graphql/index.js";
 const app = express();
 app.use(express.json());
-const Port = 3000;
+const Port = 3003;
+app.use(cors({
+    origin: "*",
+    credentials: true
+}));
 app.get("/", (req, res) => {
     return res.send("Heath Check is Done! Backend is Work PerFectly");
 });
