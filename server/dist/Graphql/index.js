@@ -1,17 +1,17 @@
 import { ApolloServer } from '@apollo/server';
 import { User } from './user/index.js';
-;
 async function InititApolloserver() {
     const server = new ApolloServer({
-        typeDefs: ` 
-     ${User.typeDefs}
-   type Query {
-        ${User.query}
+        typeDefs: `
+    ${User.typeDefs}
+      type Query {
+       ${User.query}
       }
-     type mutation{
-     ${User.mutation}
-     }
-     `,
+
+      type Mutation {
+        ${User.mutation}
+      }
+    `,
         resolvers: {
             Query: {
                 ...User.resolver.Query

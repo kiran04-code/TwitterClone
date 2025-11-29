@@ -3,7 +3,10 @@ export declare const resolver: {
         verifedGoogleToken: (parent: any, { token }: {
             token: string;
         }) => Promise<string>;
+        name: () => string;
     };
-    Mutation: {};
+    Mutation: {
+        dummy: () => string;
+    };
 };
 //# sourceMappingURL=resolver.d.ts.map

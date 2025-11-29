@@ -1,14 +1,17 @@
 export declare const User: {
     query: string;
     typeDefs: string;
-    mutation: {};
+    mutation: string;
     resolver: {
         Query: {
             verifedGoogleToken: (parent: any, { token }: {
                 token: string;
             }) => Promise<string>;
+            name: () => string;
         };
-        Mutation: {};
+        Mutation: {
+            dummy: () => string;
+        };
     };
 };
 //# sourceMappingURL=index.d.ts.map

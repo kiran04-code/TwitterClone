@@ -1,1 +1,4 @@
-export const mutation ={}
+export const mutation =`#graphql
+dummy: String
+
+`
