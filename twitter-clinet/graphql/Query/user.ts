@@ -13,10 +13,10 @@ export const getCurrentUserQuery = graphql(
       getCurrentUser {
         id,
         firstName,
-        LastName
-        email
-        PrfileImage
+        LastName,
+        email,
+        PrfileImage,
       }
     }
-     `
+  `
 )
