@@ -16,7 +16,7 @@ datasource db {
 model User {
 id String @id @default(cuid())
 firstName String
-LastName String?
+lastName String?
 email String @unique
 PrfileImage String
 createAt DateTime @default(now())

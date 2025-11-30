@@ -7,25 +7,32 @@ import { CiBookmark } from "react-icons/ci";
 import { GiSelfLove } from "react-icons/gi";
 import { FaRetweet } from "react-icons/fa6";
 import { AiOutlineBarChart } from "react-icons/ai";
+import { useCurrentUsert } from '@/hooks/user';
 const Card = () => {
+    const {user} = useCurrentUsert()
     return (
         <div className="w-full flex flex-col border-b border-gray-700 p-4 gap-3 hover:bg-[#0b0b0f] ">
 
 
             <div className="flex items-center gap-3">
 
-                <div className="bg-orange-400 rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
-                    K
+                <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
+                    {user && user.PrfileImage && <Image
+                                   src={user?.PrfileImage || ""}
+                                   width={250}
+                                   height={250}
+                                   alt="Profile Image"
+                                   className='rounded-full  shadow-2xl'
+                                 />}
                 </div>
-
 
                 <div className="flex flex-col">
                     <div className="flex items-center gap-1 text-base font-semibold">
-                        <h1 className="uppercase">KIRAN RATHOD</h1>
+                        <h1 className="uppercase">{user?.firstName}{user?.LastName}</h1>
                         <MdVerified className="text-blue-400 text-lg" />
                     </div>
                     <div className="flex items-center gap-2 text-gray-500 text-sm">
-                        <p>@kiran.dev</p>
+                        <p>@{user?.email}</p>
                         <p>· 7h</p>
                     </div>
                 </div>

@@ -15,15 +15,19 @@ app.get("/", (req, res) => {
 })
 app.use("/graphql", expressMiddleware(await InititApolloserver(), {
     context: async ({ req, res }) => {
-        const auth = req.headers.authorization;
-        if (typeof auth !== "string" || !auth.startsWith("Bearer ")) {
-        return { user: undefined };
-      }
-      const token = auth.split(" ")[1]
-        return {
-            user: 
-            jwtServies.deocdToken(token) 
+        const authHeader = req.headers.authorization;
+        let user;
+        if (typeof authHeader === "string" && authHeader.startsWith("Bearer ")) {
+            const token = authHeader.replace("Bearer ", "").trim();
+            try {
+                user = jwtServies.deocdToken(token);
+            } catch {
+                user = undefined; 
+            }
         }
+
+        return { user };
+
     }
 })
 )

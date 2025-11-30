@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import { GoHome } from 'react-icons/go';
 import { RiTwitterXLine } from "react-icons/ri";
@@ -13,6 +14,8 @@ import LeftSideNav from '@/components/LeftSide/leftSideNav';
 import RightsideFeed from '@/components/RightSide/RightsideFeed';
 import Feeds from '@/components/Feed/Feeds';
 import { Toaster } from "react-hot-toast"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,8 +62,10 @@ const page = () => {
       icons: <CiCircleMore />
     },
   ]
+  const queryclinet = new QueryClient()
   return (
-    <div className={geistSans.className}>
+    <QueryClientProvider client={queryclinet}>
+      <div className={geistSans.className}>
       <div className='grid grid-cols-12 h-screen w-screen px-40 '>
         <Toaster
           position="top-left"
@@ -82,6 +87,8 @@ const page = () => {
         <RightsideFeed />
       </div>
     </div>
+    <ReactQueryDevtools/>
+    </QueryClientProvider>
   )
 }
 
