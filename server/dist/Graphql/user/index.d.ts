@@ -12,13 +12,25 @@ export declare const User: {
                 firstName: string;
                 LastName: string | null;
                 email: string;
-                PrfileImage: string;
-                createAt: Date;
+                profileImage: string;
+                createdAt: Date;
                 updatedAt: Date;
             } | null>;
         };
         Mutation: {
             dummy: () => string;
+        };
+        extraResolver2: {
+            User: {
+                tweets: (parent: import("../../generated/prisma/client.js").User) => Promise<{
+                    id: string;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    textContent: string;
+                    imageUrl: string | null;
+                    authorId: string;
+                }[]>;
+            };
         };
     };
 };

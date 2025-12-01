@@ -13,12 +13,23 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-id String @id @default(cuid())
-firstName String
-lastName String?
-email String @unique
-PrfileImage String
-createAt DateTime @default(now())
-updatedAt DateTime @updatedAt()
+model user {
+  id           String   @id @default(cuid())
+  firstName    String
+  LastName     String?
+  email        String   @unique
+  profileImage String @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tweets       Tweet[]
+}
+
+model Tweet {
+  id          String   @id @default(cuid())
+  textContent String
+  imageUrl    String?
+  author      user     @relation(fields: [authorId], references: [id])
+  authorId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

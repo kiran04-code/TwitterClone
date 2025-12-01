@@ -231,7 +231,8 @@ export type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? n
 export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>;
 type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>;
 export declare const ModelName: {
-    readonly User: "User";
+    readonly user: "user";
+    readonly Tweet: "Tweet";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -244,81 +245,155 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user";
+        modelProps: "user" | "tweet";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
-        User: {
-            payload: Prisma.$UserPayload<ExtArgs>;
-            fields: Prisma.UserFieldRefs;
+        user: {
+            payload: Prisma.$userPayload<ExtArgs>;
+            fields: Prisma.userFieldRefs;
             operations: {
                 findUnique: {
-                    args: Prisma.UserFindUniqueArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null;
+                    args: Prisma.userFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload> | null;
                 };
                 findUniqueOrThrow: {
-                    args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>;
+                    args: Prisma.userFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>;
                 };
                 findFirst: {
-                    args: Prisma.UserFindFirstArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null;
+                    args: Prisma.userFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload> | null;
                 };
                 findFirstOrThrow: {
-                    args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>;
+                    args: Prisma.userFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>;
                 };
                 findMany: {
-                    args: Prisma.UserFindManyArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[];
+                    args: Prisma.userFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>[];
                 };
                 create: {
-                    args: Prisma.UserCreateArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>;
+                    args: Prisma.userCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>;
                 };
                 createMany: {
-                    args: Prisma.UserCreateManyArgs<ExtArgs>;
+                    args: Prisma.userCreateManyArgs<ExtArgs>;
                     result: BatchPayload;
                 };
                 createManyAndReturn: {
-                    args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[];
+                    args: Prisma.userCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>[];
                 };
                 delete: {
-                    args: Prisma.UserDeleteArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>;
+                    args: Prisma.userDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>;
                 };
                 update: {
-                    args: Prisma.UserUpdateArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>;
+                    args: Prisma.userUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>;
                 };
                 deleteMany: {
-                    args: Prisma.UserDeleteManyArgs<ExtArgs>;
+                    args: Prisma.userDeleteManyArgs<ExtArgs>;
                     result: BatchPayload;
                 };
                 updateMany: {
-                    args: Prisma.UserUpdateManyArgs<ExtArgs>;
+                    args: Prisma.userUpdateManyArgs<ExtArgs>;
                     result: BatchPayload;
                 };
                 updateManyAndReturn: {
-                    args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[];
+                    args: Prisma.userUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>[];
                 };
                 upsert: {
-                    args: Prisma.UserUpsertArgs<ExtArgs>;
-                    result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>;
+                    args: Prisma.userUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$userPayload>;
                 };
                 aggregate: {
                     args: Prisma.UserAggregateArgs<ExtArgs>;
                     result: runtime.Types.Utils.Optional<Prisma.AggregateUser>;
                 };
                 groupBy: {
-                    args: Prisma.UserGroupByArgs<ExtArgs>;
+                    args: Prisma.userGroupByArgs<ExtArgs>;
                     result: runtime.Types.Utils.Optional<Prisma.UserGroupByOutputType>[];
                 };
                 count: {
-                    args: Prisma.UserCountArgs<ExtArgs>;
+                    args: Prisma.userCountArgs<ExtArgs>;
                     result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number;
+                };
+            };
+        };
+        Tweet: {
+            payload: Prisma.$TweetPayload<ExtArgs>;
+            fields: Prisma.TweetFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.TweetFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.TweetFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>;
+                };
+                findFirst: {
+                    args: Prisma.TweetFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.TweetFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>;
+                };
+                findMany: {
+                    args: Prisma.TweetFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>[];
+                };
+                create: {
+                    args: Prisma.TweetCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>;
+                };
+                createMany: {
+                    args: Prisma.TweetCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.TweetCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>[];
+                };
+                delete: {
+                    args: Prisma.TweetDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>;
+                };
+                update: {
+                    args: Prisma.TweetUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.TweetDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.TweetUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.TweetUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>[];
+                };
+                upsert: {
+                    args: Prisma.TweetUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TweetPayload>;
+                };
+                aggregate: {
+                    args: Prisma.TweetAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateTweet>;
+                };
+                groupBy: {
+                    args: Prisma.TweetGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.TweetGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.TweetCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.TweetCountAggregateOutputType> | number;
                 };
             };
         };
@@ -361,11 +436,20 @@ export declare const UserScalarFieldEnum: {
     readonly firstName: "firstName";
     readonly LastName: "LastName";
     readonly email: "email";
-    readonly PrfileImage: "PrfileImage";
-    readonly createAt: "createAt";
+    readonly profileImage: "profileImage";
+    readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const TweetScalarFieldEnum: {
+    readonly id: "id";
+    readonly textContent: "textContent";
+    readonly imageUrl: "imageUrl";
+    readonly authorId: "authorId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type TweetScalarFieldEnum = (typeof TweetScalarFieldEnum)[keyof typeof TweetScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -486,7 +570,8 @@ export type PrismaClientOptions = ({
     omit?: GlobalOmitConfig;
 };
 export type GlobalOmitConfig = {
-    user?: Prisma.UserOmit;
+    user?: Prisma.userOmit;
+    tweet?: Prisma.TweetOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

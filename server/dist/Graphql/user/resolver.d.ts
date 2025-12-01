@@ -1,4 +1,5 @@
 import type { GraphqlContext } from "../../interface.js";
+import { type User } from "../../generated/prisma/client.js";
 export interface GoogleAuthPayload {
     iss?: string;
     azp?: string;
@@ -29,13 +30,25 @@ export declare const resolver: {
             firstName: string;
             LastName: string | null;
             email: string;
-            PrfileImage: string;
-            createAt: Date;
+            profileImage: string;
+            createdAt: Date;
             updatedAt: Date;
         } | null>;
     };
     Mutation: {
         dummy: () => string;
+    };
+    extraResolver2: {
+        User: {
+            tweets: (parent: User) => Promise<{
+                id: string;
+                createdAt: Date;
+                updatedAt: Date;
+                textContent: string;
+                imageUrl: string | null;
+                authorId: string;
+            }[]>;
+        };
     };
 };
 //# sourceMappingURL=resolver.d.ts.map

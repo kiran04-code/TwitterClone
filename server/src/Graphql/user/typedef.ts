@@ -4,6 +4,7 @@ type User {
  firstName:String!
  LastName:String
  email:String!
- PrfileImage:String
+ profileImage:String
+ tweets:[Tweet]
 }
 `

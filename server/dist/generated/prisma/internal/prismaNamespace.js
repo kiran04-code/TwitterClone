@@ -68,7 +68,8 @@ export const JsonNull = runtime.JsonNull;
  */
 export const AnyNull = runtime.AnyNull;
 export const ModelName = {
-    User: 'User'
+    user: 'user',
+    Tweet: 'Tweet'
 };
 /**
  * Enums
@@ -84,8 +85,16 @@ export const UserScalarFieldEnum = {
     firstName: 'firstName',
     LastName: 'LastName',
     email: 'email',
-    PrfileImage: 'PrfileImage',
-    createAt: 'createAt',
+    profileImage: 'profileImage',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const TweetScalarFieldEnum = {
+    id: 'id',
+    textContent: 'textContent',
+    imageUrl: 'imageUrl',
+    authorId: 'authorId',
+    createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
 export const SortOrder = {

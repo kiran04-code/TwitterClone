@@ -3,6 +3,8 @@ import axios from "axios";
 import { prisma } from "../../client/db/index.js";
 import jwtServies from "../../services/jwt.js";
 import type { GraphqlContext } from "../../interface.js";
+import { Prisma, type User } from "../../generated/prisma/client.js";
+
 
 export interface GoogleAuthPayload {
   iss?: string;               // issuer URL
@@ -41,7 +43,7 @@ const queries = {
             firstName: data.given_name!,
             LastName: data.family_name!,
             email: data.email!,
-            PrfileImage: data.picture!
+            profileImage: data.picture!
           }
         })
       }
@@ -65,8 +67,15 @@ const queries = {
 const mutation = {
   dummy: () => "This is just a placeholder mutation",
 };
-
+const extraResolver2 = {
+  User:{
+    tweets:async(parent:User)=>{
+      return await prisma.tweet.findMany({where:{authorId:parent.id}})
+    }
+  }
+}
 export const resolver = {
   Query: queries,
-  Mutation: mutation
+  Mutation: mutation,
+  extraResolver2
 }

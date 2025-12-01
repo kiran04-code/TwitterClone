@@ -1,6 +1,7 @@
 import axios from "axios";
 import { prisma } from "../../client/db/index.js";
 import jwtServies from "../../services/jwt.js";
+import { Prisma } from "../../generated/prisma/client.js";
 const queries = {
     verifedGoogleToken: async (parent, { token }) => {
         try {
@@ -17,7 +18,7 @@ const queries = {
                         firstName: data.given_name,
                         LastName: data.family_name,
                         email: data.email,
-                        PrfileImage: data.picture
+                        profileImage: data.picture
                     }
                 });
             }
@@ -42,8 +43,16 @@ const queries = {
 const mutation = {
     dummy: () => "This is just a placeholder mutation",
 };
+const extraResolver2 = {
+    User: {
+        tweets: async (parent) => {
+            return await prisma.tweet.findMany({ where: { authorId: parent.id } });
+        }
+    }
+};
 export const resolver = {
     Query: queries,
-    Mutation: mutation
+    Mutation: mutation,
+    extraResolver2
 };
 //# sourceMappingURL=resolver.js.map

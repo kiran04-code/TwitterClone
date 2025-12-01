@@ -112,14 +112,25 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
         extArgs: ExtArgs;
     }>>;
     /**
- * `prisma.user`: Exposes CRUD operations for the **User** model.
+ * `prisma.user`: Exposes CRUD operations for the **user** model.
   * Example usage:
   * ```ts
   * // Fetch zero or more Users
   * const users = await prisma.user.findMany()
   * ```
   */
-    get user(): Prisma.UserDelegate<ExtArgs, {
+    get user(): Prisma.userDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.tweet`: Exposes CRUD operations for the **Tweet** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Tweets
+      * const tweets = await prisma.tweet.findMany()
+      * ```
+      */
+    get tweet(): Prisma.TweetDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
 }

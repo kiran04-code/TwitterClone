@@ -95,8 +95,8 @@ const LeftSideNav = () => {
 
               className="w-10 h-10 bg-amber-400 mr-2 flex justify-center items-center rounded-full cursor-pointer"
             >
-             {user && user.data?.getCurrentUser?.PrfileImage &&<Image
-                src={user.data?.getCurrentUser?.PrfileImage || ""}
+             {user && user.data?.getCurrentUser?.profileImage &&<Image
+                src={user.data?.getCurrentUser?.profileImage || ""}
                 width={250}
                 height={250}
                 alt="Profile Image"

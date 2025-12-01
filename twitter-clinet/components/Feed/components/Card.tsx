@@ -17,8 +17,8 @@ const Card = () => {
             <div className="flex items-center gap-3">
 
                 <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
-                    {user && user.PrfileImage && <Image
-                                   src={user?.PrfileImage || ""}
+                    {user && user.profileImage   && <Image
+                                   src={user?.profileImage || ""}
                                    width={250}
                                    height={250}
                                    alt="Profile Image"

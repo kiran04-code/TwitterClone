@@ -3,8 +3,13 @@ export { Prisma };
 export * as $Enums from './enums.js';
 export * from './enums.js';
 /**
- * Model User
+ * Model user
  *
  */
-export type User = Prisma.UserModel;
+export type user = Prisma.userModel;
+/**
+ * Model Tweet
+ *
+ */
+export type Tweet = Prisma.TweetModel;
 //# sourceMappingURL=browser.d.ts.map

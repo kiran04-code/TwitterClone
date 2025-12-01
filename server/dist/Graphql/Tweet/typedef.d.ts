@@ -1,0 +1,2 @@
+export declare const typeDefs = "#graphql\ninput cretaeTweetData {\n  textContent: String!\n  imageUrl: String\n}\n\ntype Tweet {\n    id:ID!,\n    textContent: String!\n    imageUrl: String\n    author:User\n}\n";
+//# sourceMappingURL=typedef.d.ts.map

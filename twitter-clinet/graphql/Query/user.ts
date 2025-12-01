@@ -15,7 +15,7 @@ export const getCurrentUserQuery = graphql(
         firstName,
         LastName,
         email,
-        PrfileImage,
+        profileImage,
       }
     }
   `
