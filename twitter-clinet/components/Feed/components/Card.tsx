@@ -8,62 +8,73 @@ import { GiSelfLove } from "react-icons/gi";
 import { FaRetweet } from "react-icons/fa6";
 import { AiOutlineBarChart } from "react-icons/ai";
 import { useCurrentUsert } from '@/hooks/user';
+import { graphqlClient } from '@/ApiServer/api';
+import { AllTwets } from '@/hooks/Tweets';
 const Card = () => {
-    const {user} = useCurrentUsert()
+    const { tweets } = AllTwets()
+    console.log(tweets)
+    const { user } = useCurrentUsert()
     return (
-        <div className="w-full flex flex-col border-b border-gray-700 p-4 gap-3 hover:bg-[#0b0b0f] ">
+        <div>
+            {
+                tweets?.map((i) => (
+                    <div key={i?.id} className="w-full flex flex-col border-b border-gray-700 p-4 gap-3 hover:bg-[#0b0b0f] ">
 
 
-            <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3">
 
-                <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
-                    {user && user.profileImage   && <Image
-                                   src={user?.profileImage || ""}
-                                   width={250}
-                                   height={250}
-                                   alt="Profile Image"
-                                   className='rounded-full  shadow-2xl'
-                                 />}
-                </div>
+                            <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
+                                {i && i.author && <Image
+                                    src={i.author?.profileImage || ""}
+                                    width={250}
+                                    height={250}
+                                    alt="Profile Image"
+                                    className='rounded-full  shadow-2xl'
+                                />}
+                            </div>
 
-                <div className="flex flex-col">
-                    <div className="flex items-center gap-1 text-base font-semibold">
-                        <h1 className="uppercase">{user?.firstName}{user?.LastName}</h1>
-                        <MdVerified className="text-blue-400 text-lg" />
+                            <div className="flex flex-col">
+                                <div className="flex items-center gap-1 text-base font-semibold">
+                                    <h1 className="uppercase">{i?.author?.firstName} {i?.author?.LastName}</h1>
+                                    <MdVerified className="text-blue-400 text-lg" />
+                                </div>
+                                <div className="flex items-center gap-2 text-gray-500 text-sm">
+                                    <p>@{user?.email}</p>
+                                    <p>· 7h</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p className="text-gray-200 text-sm leading-relaxed">
+                            {i?.textContent}
+                        </p>
+
+
+                        <div className="rounded-2xl overflow-hidden border border-gray-600">
+                            {
+                                i?.imageUrl && <Image
+                                src={i?.imageUrl}
+                                alt="post media"
+                                className="w-full object-cover"
+                                width={250}
+                                height={250}
+                            />
+                            }
+                        </div>
+
+
+                        <div className="flex text-[15px] justify-between text-gray-500 text-sm px-2">
+                            <p className='flex justify-center items-center cursor-pointer gap-2'><FaRegMessage /> 12</p>
+                            <p className='text-[15px] flex justify-center cursor-pointer  gap-2 items-center'><FaRetweet /> 4</p>
+                            <p className='text-[26px] cursor-pointer flex justify-center  gap-2 items-center '><GiSelfLove className='hover:text-pink-500 hover:bg-pink-950 p-1 rounded-full transition ' /> <p className='hover:text-pink-500 text-[16px] bg- rounded-full transition'>32</p></p>
+                            <p className='text-[16px] flex justify-center cursor-pointer  gap-2 items-center'><AiOutlineBarChart /> 1.2K</p>
+                            <p className='text-[16px] flex justify-center cursor-pointer  gap-2 items-center'><CiBookmark /> 1.K</p>
+                            <p className='text-[15px] flex justify-center cursor-pointer gap-2 items-center'><FiShare />  </p>
+                        </div>
+
                     </div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                        <p>@{user?.email}</p>
-                        <p>· 7h</p>
-                    </div>
-                </div>
-            </div>
-
-            <p className="text-gray-200 text-sm leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, ut?
-                Numquam dolorem nostrum suscipit in rerum architecto impedit necessitatibus quasi.
-            </p>
-
-
-            <div className="rounded-2xl overflow-hidden border border-gray-600">
-                <Image
-                    src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNsb3RoaW5nfGVufDB8fDB8fHww"
-                    alt="post media"
-                    className="w-full object-cover"
-                    width={250}
-                    height={250}
-                />
-            </div>
-
-
-            <div className="flex text-[15px] justify-between text-gray-500 text-sm px-2">
-                <p className='flex justify-center items-center cursor-pointer gap-2'><FaRegMessage /> 12</p>
-                <p className='text-[15px] flex justify-center cursor-pointer  gap-2 items-center'><FaRetweet /> 4</p>
-                <p className='text-[26px] cursor-pointer flex justify-center  gap-2 items-center '><GiSelfLove className='hover:text-pink-500 hover:bg-pink-950 p-1 rounded-full transition ' /> <p className='hover:text-pink-500 text-[16px] bg- rounded-full transition'>32</p></p>
-                <p className='text-[16px] flex justify-center cursor-pointer  gap-2 items-center'><AiOutlineBarChart /> 1.2K</p>
-                <p className='text-[16px] flex justify-center cursor-pointer  gap-2 items-center'><CiBookmark /> 1.K</p>
-                <p className='text-[15px] flex justify-center cursor-pointer gap-2 items-center'><FiShare />  </p>
-            </div>
-
+                ))
+            }
         </div>
     )
 }

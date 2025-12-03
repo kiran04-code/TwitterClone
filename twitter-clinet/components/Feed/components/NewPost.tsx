@@ -8,6 +8,8 @@ import { TbCalendarTime } from "react-icons/tb";
 import { FaFaceSmileWink } from "react-icons/fa6";
 import { CiCirclePlus } from "react-icons/ci";
 import { RxCrossCircled } from "react-icons/rx";
+import toast from 'react-hot-toast';
+import { CreateTweets } from '@/hooks/Tweets';
 const NewPost = () => {
     const { user } = useCurrentUsert()
     const [images, setImage] = useState<string | null >();
@@ -25,6 +27,26 @@ const NewPost = () => {
             }
         };
     }, [])
+   const {mutate} = CreateTweets();
+    const [content,setContent] = useState("");
+    const handlecreateTweet =(e:React.MouseEvent<HTMLButtonElement>)=>{
+        console.log("TextContent:",content,"image:",images)
+       try {
+           e.preventDefault();
+        if(!content){
+            return  toast.error(" First Write the Content for Tweet")
+        }
+        mutate({textContent:content,imageUrl:images})
+        toast.success("Post created sucessfull")
+        setImage("")
+        setContent("")
+
+       } catch (error) {
+        toast.error("Error happed by the some server issues")
+        console.log(error)
+       }
+        
+     }
     return (
         <div className='py-5 border-gray-500 border-b-2'>
             <div className='px-4 py-2 '>
@@ -41,7 +63,7 @@ const NewPost = () => {
                     </div>
 
                     <div className="flex flex-col w-full">
-                        <textarea rows={2} placeholder="what 's happening?" className='focus:outline-none placeholder:text-[18px]' />
+                        <textarea  value={content} onChange={(e)=>setContent(e.target.value)} rows={2} placeholder="what 's happening?" className='focus:outline-none placeholder:text-[18px]' />
                     </div>
                 </div>
               {
@@ -82,7 +104,7 @@ const NewPost = () => {
                 }
                 <div className='flex items-center justify-evenly gap-5'>
                     <button><CiCirclePlus className='text-blue-500 text-[25px]' /></button>
-                    <button className='bg-white p-2 px-4 rounded-full text-black font-bold'>post</button>
+                    <button type='button'  onClick={handlecreateTweet} className=' cursor-pointer bg-white p-2 px-4 rounded-full text-black font-bold'>post</button>
                 </div>
             </div>
         </div>

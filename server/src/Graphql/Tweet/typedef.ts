@@ -1,9 +1,8 @@
 export  const typeDefs = `#graphql
-input cretaeTweetData {
+input CreateTweetData {
   textContent: String!
   imageUrl: String
 }
-
 type Tweet {
     id:ID!,
     textContent: String!

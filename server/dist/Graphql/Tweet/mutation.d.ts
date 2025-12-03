@@ -1,2 +1,2 @@
-export declare const mutation = "#graphql\n createTweet(payload:cretaeTweetData!):Tweet!\n";
+export declare const mutation = "#graphql\n createTweet(payload:CreateTweetData!):Tweet!\n";
 //# sourceMappingURL=mutation.d.ts.map
