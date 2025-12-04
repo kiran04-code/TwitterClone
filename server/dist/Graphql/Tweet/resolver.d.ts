@@ -8,11 +8,11 @@ export declare const resolver: {
     query: {
         getTweets: (parent: any, {}: {}, {}: {}, ctx: GraphqlContext) => Promise<{
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             textContent: string;
             imageUrl: string | null;
             authorId: string;
-            createdAt: Date;
-            updatedAt: Date;
         }[]>;
     };
     mutation: {
@@ -20,23 +20,23 @@ export declare const resolver: {
             payload: tweetsdata;
         }, ctx: GraphqlContext) => Promise<{
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             textContent: string;
             imageUrl: string | null;
             authorId: string;
-            createdAt: Date;
-            updatedAt: Date;
         }>;
     };
     extraResolver: {
         Tweet: {
             author: (parent: Tweet) => Promise<{
                 id: string;
-                createdAt: Date;
-                updatedAt: Date;
-                email: string;
                 firstName: string;
                 LastName: string | null;
+                email: string;
                 profileImage: string;
+                createdAt: Date;
+                updatedAt: Date;
             } | null>;
         };
     };

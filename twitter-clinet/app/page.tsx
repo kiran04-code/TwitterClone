@@ -66,7 +66,7 @@ const page = () => {
   return (
     <QueryClientProvider client={queryclinet}>
       <div className={geistSans.className}>
-      <div className='grid grid-cols-12 h-screen w-screen px-40 '>
+      <div className='md:grid md:grid-cols-12  grid grid-cols-12 h-screen w-screen md:px-40 '>
         <Toaster
           position="top-left"
           toastOptions={{
@@ -84,7 +84,9 @@ const page = () => {
         />
         <LeftSideNav/>
         <Feeds />
-        <RightsideFeed />
+    <div className="md:flex hidden">
+            <RightsideFeed />
+          </div>
       </div>
     </div>
     <ReactQueryDevtools/>

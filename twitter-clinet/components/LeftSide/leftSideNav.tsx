@@ -1,124 +1,180 @@
-import React, { useState } from 'react'
-import { GoHome } from 'react-icons/go';
+import React, { useState } from "react";
+import { GoHome } from "react-icons/go";
 import { RiTwitterXLine } from "react-icons/ri";
-import { FaFacebookMessenger } from "react-icons/fa6";
-import { CiSearch } from "react-icons/ci";
+import { FaFacebookMessenger, FaUserGroup, FaRegBookmark } from "react-icons/fa6";
+import { CiSearch, CiCircleMore, CiUser } from "react-icons/ci";
 import { MdNotificationsNone } from "react-icons/md";
-import { FaUserGroup } from "react-icons/fa6";
-import { CiCircleMore } from "react-icons/ci";
-import { CiUser } from "react-icons/ci";
-import { FaRegBookmark } from "react-icons/fa6";
-import { useCurrentUsert } from '@/hooks/user';
-import Image from 'next/image';
+import { useCurrentUsert } from "@/hooks/user";
+import Image from "next/image";
+
+interface TwitterButton {
+  title: string;
+  icon: React.ReactNode;
+}
+
 const LeftSideNav = () => {
+  const AllIcons: TwitterButton[] = [
+    { title: "Home", icon: <GoHome /> },
+    { title: "Explore", icon: <CiSearch /> },
+    { title: "Notification", icon: <MdNotificationsNone /> },
+    { title: "Messages", icon: <FaFacebookMessenger /> },
+    { title: "Communities", icon: <FaUserGroup /> },
+    { title: "Bookmark", icon: <FaRegBookmark /> },
+    { title: "Profile", icon: <CiUser /> },
+    { title: "More", icon: <CiCircleMore /> },
+  ];
 
-  interface TwitterButtom {
-    tittle: string
-    icons: React.ReactNode
-  }
+  const user = useCurrentUsert();
+  const [openMenu, setOpenMenu] = useState(false);
 
-  const AllIcons: TwitterButtom[] = [
-    {
-      tittle: "Home",
-      icons: <GoHome />
-    },
-    {
-      tittle: "Explore",
-      icons: <CiSearch />
-    },
-    {
-      tittle: "Notification",
-      icons: <MdNotificationsNone />
-    },
-    {
-      tittle: "Messages",
-      icons: <FaFacebookMessenger />
-    },
-    {
-      tittle: "Communtites",
-      icons: <FaUserGroup />
-    },
-    {
-      tittle: "BookMark",
-      icons: <FaRegBookmark />
-    },
-    {
-      tittle: "Profile",
-      icons: <CiUser />
-    },
-    {
-      tittle: "More",
-      icons: <CiCircleMore />
-    },
-  ]
-  const user = useCurrentUsert()
-  const [clicktrue, setclickTrue] = useState(false)
-  const handlelogut = () =>{
-    window.localStorage.removeItem("__twitter_token")
-    window.location.reload()
-  }
+  const handleLogout = () => {
+    window.localStorage.removeItem("__twitter_token");
+    window.location.reload();
+  };
+
   return (
-    <div className='col-span-3   py-3'>
-      <div className='text-[35px] w-fit  hover:bg-gray-900 p-2 rounded-full transition  cursor-pointer'>
-        <RiTwitterXLine className=' ' />
-      </div>
+    <div
+      className="
+        col-span-2 
+        md:col-span-3 
+        px-3 
+        py-4 
+        h-screen 
+        border-r border-gray-700
+        flex flex-col 
+        justify-between
+      "
+    >
+      {/* Logo */}
       <div>
-        <ul className=' flex flex-col gap-2 mt-3'>
-          {
-            AllIcons.map((item =>
-              <li key={item.tittle} className='flex  gap-3 items-center  hover:bg-[#2d2b30] cursor-pointer w-fit p-2 transition rounded-full '>
-                <span className=' px-1 text-[24px]'>{item.icons}</span>
-                <span className='text-[20px]'>{item.tittle}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <div className='pt-2 flex justify-start px-2'>
-          <button className='bg-white w-55 p-4 font-bold text-black  rounded-full  cursor-pointer'>Post</button>
+        <div className="text-[35px] w-fit hover:bg-gray-900 p-2 rounded-full transition cursor-pointer">
+          <RiTwitterXLine />
         </div>
-        {
-          user&&user.data?.getCurrentUser&& <div className='pt-4 flex gap-2 justify-start px-2 mt-3.5  hover:bg-[#2d2b30]  p-2 rounded-full transition relative'>
-            {
-              clicktrue ? <div
 
-                className="absolute bottom-15 w-67 p-3 bg-black border-2 rounded-3xl border-gray-400 hover:scale-105 transition"
-              >
-                <h1 className="text-white text-base font-semibold">
-                  Name: {user.data?.getCurrentUser?.firstName} {user.data?.getCurrentUser?.LastName}
-                </h1>
-
-
-                <button onClick={handlelogut} className=' cursor-pointer text-[13px] hover:bg-white rounded-2xl p-1 hover:text-black   text-nowrap mt-1 font-semibold flex justify-center items-center rounded-xl '>Log out {user.data?.getCurrentUser?.email}</button>
-              </div> : null
-            }
-            <div className='pt-2 flex justify-start px-2' > <div
-
-              className="w-10 h-10 bg-amber-400 mr-2 flex justify-center items-center rounded-full cursor-pointer"
+        {/* Main Menu */}
+        <ul className="flex flex-col gap-2 mt-4">
+          {AllIcons.map((item) => (
+            <li
+              key={item.title}
+              className="
+                flex items-center gap-3 
+                hover:bg-[#2d2b30] 
+                cursor-pointer 
+                w-fit 
+                p-2 
+                rounded-full 
+                transition
+              "
             >
-             {user && user.data?.getCurrentUser?.profileImage &&<Image
-                src={user.data?.getCurrentUser?.profileImage || ""}
-                width={250}
-                height={250}
-                alt="Profile Image"
-                className='rounded-full  shadow-2xl'
-              />
-}
-            </div>
-              <div>
-                <h1 className="text-white font-semibold">
-                  {user.data?.getCurrentUser?.firstName} {user.data?.getCurrentUser?.LastName}
-                </h1>
-                <p className="text-gray-500 text-sm">@{user.data?.getCurrentUser?.email}</p>
-              </div>
-              <CiCircleMore
-                onClick={() => setclickTrue(!clicktrue)}
-                className="text-2xl text-white cursor-pointer"
-              />
-            </div></div>
-        }
-      </div>
-    </div >
-  )
-}
+              <span className="text-[24px]">{item.icon}</span>
 
-export default LeftSideNav
+              {/* Hide text on mobile */}
+              <span className="text-[20px] md:flex hidden">{item.title}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Post Button */}
+        <div className="pt-3">
+          <button
+            className="
+              bg-white 
+              text-black 
+              font-bold 
+              px-6 
+              py-2 
+              rounded-full 
+              md:flex hidden
+            "
+          >
+            Post
+          </button>
+        </div>
+      </div>
+
+      {/* User Section */}
+      {user?.data?.getCurrentUser && (
+        <div
+          className="
+            flex items-center gap-3 
+            hover:bg-[#2d2b30] 
+            p-2 
+            rounded-full 
+            transition 
+            relative
+          "
+        >
+          {/* Profile Image */}
+          <div className="w-11 h-11 bg-gray-700 flex items-center justify-center rounded-full overflow-hidden">
+            {user.data?.getCurrentUser?.profileImage && (
+              <Image
+                src={user.data?.getCurrentUser?.profileImage}
+                width={45}
+                height={45}
+                alt="Profile Image"
+                className="rounded-full"
+              />
+            )}
+          </div>
+
+          {/* Name + Email */}
+          <div className="md:flex hidden flex-col">
+            <h1 className="text-white font-semibold">
+              {user.data?.getCurrentUser?.firstName}{" "}
+              {user.data?.getCurrentUser?.LastName}
+            </h1>
+            <p className="text-gray-500 text-sm">@{user.data?.getCurrentUser?.email}</p>
+          </div>
+
+          {/* Menu Icon */}
+          <CiCircleMore
+            onClick={() => setOpenMenu(!openMenu)}
+            className="text-2xl text-white cursor-pointer md:flex hidden"
+          />
+
+          {/* Logout Popup */}
+          {openMenu && (
+            <div
+              className="
+                absolute 
+                bottom-14 
+                left-0 
+                bg-black 
+                border 
+                border-gray-500 
+                rounded-2xl 
+                p-3 
+                w-52 
+                shadow-xl
+              "
+            >
+              <h1 className="text-white font-semibold text-sm">
+                {user.data?.getCurrentUser?.firstName}{" "}
+                {user.data?.getCurrentUser?.LastName}
+              </h1>
+
+              <button
+                onClick={handleLogout}
+                className="
+                  w-full 
+                  mt-2 
+                  text-white 
+                  text-sm 
+                  hover:bg-white 
+                  hover:text-black 
+                  p-2 
+                  rounded-xl 
+                  transition
+                "
+              >
+                Log out @{user.data?.getCurrentUser?.email}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LeftSideNav;

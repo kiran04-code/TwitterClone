@@ -8,7 +8,7 @@ const  Card = React.lazy(()=>import ("./components/Card"))
 const Feeds = () => {
   const user = useCurrentUsert()
   return (
-    <div className='col-span-6 overflow-auto  border-l-[0.2px] border-r-[0.2px] border-gray-500 h-full w-full   -red-400'>
+    <div className='md:col-span-6 col-span-6 overflow-auto  border-l-[0.2px] border-r-[0.2px] border-gray-500 h-full w-full   -red-400'>
       <Nav />
 
       <div className='mt-20'>
