@@ -8,6 +8,11 @@ export * from './enums.js';
  */
 export type user = Prisma.userModel;
 /**
+ * Model Followes
+ *
+ */
+export type Followes = Prisma.FollowesModel;
+/**
  * Model Tweet
  *
  */

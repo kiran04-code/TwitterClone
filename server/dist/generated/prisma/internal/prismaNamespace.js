@@ -69,6 +69,7 @@ export const JsonNull = runtime.JsonNull;
 export const AnyNull = runtime.AnyNull;
 export const ModelName = {
     user: 'user',
+    Followes: 'Followes',
     Tweet: 'Tweet'
 };
 /**
@@ -88,6 +89,10 @@ export const UserScalarFieldEnum = {
     profileImage: 'profileImage',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const FollowesScalarFieldEnum = {
+    followerId: 'followerId',
+    followingId: 'followingId'
 };
 export const TweetScalarFieldEnum = {
     id: 'id',

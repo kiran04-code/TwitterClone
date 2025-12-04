@@ -123,6 +123,17 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
         omit: OmitOpts;
     }>;
     /**
+     * `prisma.followes`: Exposes CRUD operations for the **Followes** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Followes
+      * const followes = await prisma.followes.findMany()
+      * ```
+      */
+    get followes(): Prisma.FollowesDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
      * `prisma.tweet`: Exposes CRUD operations for the **Tweet** model.
       * Example usage:
       * ```ts

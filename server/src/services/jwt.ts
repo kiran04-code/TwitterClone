@@ -1,10 +1,10 @@
 import { prisma } from "../client/db/index.js";
-import type { User } from "../generated/prisma/client.js";
+import type { user } from "../generated/prisma/client.js";
 import JWT from "jsonwebtoken"
 import type { JwtTokenUser } from "../interface.js";
 const jwtTokenkey = "kiranRathod147"
 class jwtServies {
-    static async genrateToken(users: User) {
+    static async genrateToken(users: user) {
         const payload: JwtTokenUser = {
             id: users?.id,
             email: users?.email

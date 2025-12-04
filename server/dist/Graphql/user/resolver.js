@@ -2,6 +2,7 @@ import axios from "axios";
 import { prisma } from "../../client/db/index.js";
 import jwtServies from "../../services/jwt.js";
 import { Prisma } from "../../generated/prisma/client.js";
+import UserService from "../../services/user.js";
 const queries = {
     verifedGoogleToken: async (parent, { token }) => {
         try {
@@ -41,12 +42,37 @@ const queries = {
     }
 };
 const mutation = {
-    dummy: () => "This is just a placeholder mutation",
+    followUser: async (parent, { to }, ctx) => {
+        if (!ctx.user || !ctx.user.id)
+            throw new Error("your are not authenticated");
+        await UserService.followers(ctx.user.id, to);
+        return true;
+    },
+    Unfollow: async (parent, { to }, ctx) => {
+        if (!ctx.user || !ctx.user.id)
+            throw new Error("your are not authenticated");
+        await UserService.UnfollowUser(ctx.user.id, to);
+        return true;
+    },
 };
 const extraResolver2 = {
     User: {
         tweets: async (parent) => {
             return await prisma.tweet.findMany({ where: { authorId: parent.id } });
+        },
+        follower: async (parent) => {
+            const result = await prisma.followes.findMany({ where: { following: { id: parent.id } }, include: {
+                    follower: true,
+                    following: true
+                } });
+            return result.map(e => e.follower);
+        },
+        following: async (parent) => {
+            const result = await prisma.followes.findMany({ where: { follower: { id: parent.id } }, include: {
+                    follower: true,
+                    following: true
+                } });
+            return result.map(e => e.following);
         }
     }
 };

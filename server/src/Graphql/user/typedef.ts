@@ -6,5 +6,7 @@ type User {
  email:String!
  profileImage:String
  tweets:[Tweet]
+ follower:[User]
+ following:[User]
 }
 `

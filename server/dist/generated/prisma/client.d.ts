@@ -23,7 +23,12 @@ export { Prisma };
  * Model user
  *
  */
-export type User = Prisma.userModel;
+export type user = Prisma.userModel;
+/**
+ * Model Followes
+ *
+ */
+export type Followes = Prisma.FollowesModel;
 /**
  * Model Tweet
  *

@@ -1,4 +1,5 @@
 export const mutation =`#graphql
-dummy: String
+followUser(to:ID!):Boolean
+Unfollow(to:ID!):Boolean
 
 `

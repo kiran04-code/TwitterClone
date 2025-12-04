@@ -18,17 +18,40 @@ export declare const User: {
             } | null>;
         };
         Mutation: {
-            dummy: () => string;
+            followUser: (parent: any, { to }: {
+                to: string;
+            }, ctx: import("../../interface.js").GraphqlContext) => Promise<boolean>;
+            Unfollow: (parent: any, { to }: {
+                to: string;
+            }, ctx: import("../../interface.js").GraphqlContext) => Promise<boolean>;
         };
         extraResolver2: {
             User: {
-                tweets: (parent: import("../../generated/prisma/client.js").User) => Promise<{
+                tweets: (parent: import("../../generated/prisma/client.js").user) => Promise<{
                     id: string;
                     createdAt: Date;
                     updatedAt: Date;
                     textContent: string;
                     imageUrl: string | null;
                     authorId: string;
+                }[]>;
+                follower: (parent: import("../../generated/prisma/client.js").user) => Promise<{
+                    id: string;
+                    firstName: string;
+                    LastName: string | null;
+                    email: string;
+                    profileImage: string;
+                    createdAt: Date;
+                    updatedAt: Date;
+                }[]>;
+                following: (parent: import("../../generated/prisma/client.js").user) => Promise<{
+                    id: string;
+                    firstName: string;
+                    LastName: string | null;
+                    email: string;
+                    profileImage: string;
+                    createdAt: Date;
+                    updatedAt: Date;
                 }[]>;
             };
         };

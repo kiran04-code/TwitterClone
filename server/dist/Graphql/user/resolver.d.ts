@@ -1,5 +1,5 @@
 import type { GraphqlContext } from "../../interface.js";
-import { type User } from "../../generated/prisma/client.js";
+import { type user } from "../../generated/prisma/client.js";
 export interface GoogleAuthPayload {
     iss?: string;
     azp?: string;
@@ -36,17 +36,40 @@ export declare const resolver: {
         } | null>;
     };
     Mutation: {
-        dummy: () => string;
+        followUser: (parent: any, { to }: {
+            to: string;
+        }, ctx: GraphqlContext) => Promise<boolean>;
+        Unfollow: (parent: any, { to }: {
+            to: string;
+        }, ctx: GraphqlContext) => Promise<boolean>;
     };
     extraResolver2: {
         User: {
-            tweets: (parent: User) => Promise<{
+            tweets: (parent: user) => Promise<{
                 id: string;
                 createdAt: Date;
                 updatedAt: Date;
                 textContent: string;
                 imageUrl: string | null;
                 authorId: string;
+            }[]>;
+            follower: (parent: user) => Promise<{
+                id: string;
+                firstName: string;
+                LastName: string | null;
+                email: string;
+                profileImage: string;
+                createdAt: Date;
+                updatedAt: Date;
+            }[]>;
+            following: (parent: user) => Promise<{
+                id: string;
+                firstName: string;
+                LastName: string | null;
+                email: string;
+                profileImage: string;
+                createdAt: Date;
+                updatedAt: Date;
             }[]>;
         };
     };

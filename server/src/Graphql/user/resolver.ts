@@ -3,7 +3,8 @@ import axios from "axios";
 import { prisma } from "../../client/db/index.js";
 import jwtServies from "../../services/jwt.js";
 import type { GraphqlContext } from "../../interface.js";
-import { Prisma, type User } from "../../generated/prisma/client.js";
+import { Prisma, type user } from "../../generated/prisma/client.js";
+import UserService from "../../services/user.js";
 
 
 export interface GoogleAuthPayload {
@@ -55,22 +56,45 @@ const queries = {
       console.log("error", error)
     }
   },
-  getCurrentUser:async(parent:any,arg:any,ctx:GraphqlContext)=>{
+  getCurrentUser: async (parent: any, arg: any, ctx: GraphqlContext) => {
     const Id = ctx.user?.id
-    if(!Id) return null
-    const UserData =  await prisma.user.findUnique({where:{id:Id}})
+    if (!Id) return null
+    const UserData = await prisma.user.findUnique({ where: { id: Id } })
     return UserData
   }
 
 };
 
 const mutation = {
-  dummy: () => "This is just a placeholder mutation",
+  followUser: async (parent: any, { to }: { to: string }, ctx: GraphqlContext) => {
+    if (!ctx.user || !ctx.user.id) throw new Error("your are not authenticated")
+    await UserService.followers(ctx.user.id, to)
+    return true
+  },
+  Unfollow: async (parent: any, { to }: { to: string }, ctx: GraphqlContext) => {
+    if (!ctx.user || !ctx.user.id) throw new Error("your are not authenticated")
+    await UserService.UnfollowUser(ctx.user.id, to)
+    return true
+  },
 };
 const extraResolver2 = {
-  User:{
-    tweets:async(parent:User)=>{
-      return await prisma.tweet.findMany({where:{authorId:parent.id}})
+  User: {
+    tweets: async (parent: user) => {
+      return await prisma.tweet.findMany({ where: { authorId: parent.id } })
+    },
+    follower: async(parent: user) => {
+      const  result = await prisma.followes.findMany({ where: { following:{ id:parent.id }  } ,include:{
+        follower:true,
+        following:true
+      } })
+      return result.map(e=>e.follower)
+    },
+    following: async(parent: user) => {
+    const result = await  prisma.followes.findMany({ where: { follower:{id:parent.id }},include:{
+      follower:true,
+      following:true
+    } })
+    return result.map(e=>e.following)
     }
   }
 }
