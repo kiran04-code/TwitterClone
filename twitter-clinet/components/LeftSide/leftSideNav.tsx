@@ -6,22 +6,23 @@ import { CiSearch, CiCircleMore, CiUser } from "react-icons/ci";
 import { MdNotificationsNone } from "react-icons/md";
 import { useCurrentUsert } from "@/hooks/user";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 interface TwitterButton {
   title: string;
   icon: React.ReactNode;
+  link?:string
 }
 
 const LeftSideNav = () => {
   const AllIcons: TwitterButton[] = [
-    { title: "Home", icon: <GoHome /> },
-    { title: "Explore", icon: <CiSearch /> },
-    { title: "Notification", icon: <MdNotificationsNone /> },
-    { title: "Messages", icon: <FaFacebookMessenger /> },
-    { title: "Communities", icon: <FaUserGroup /> },
-    { title: "Bookmark", icon: <FaRegBookmark /> },
-    { title: "Profile", icon: <CiUser /> },
-    { title: "More", icon: <CiCircleMore /> },
+    { title: "Home", icon: <GoHome /> ,link:"/"},
+    { title: "Explore", icon: <CiSearch /> , link:"/Explore"},
+    { title: "Notification", icon: <MdNotificationsNone />,link:"/Notification" },
+    { title: "Messages", icon: <FaFacebookMessenger /> ,link:"/Notification"  },
+    { title: "Communities", icon: <FaUserGroup />,link:"/Notification"  },
+    { title: "Bookmark", icon: <FaRegBookmark /> ,link:"/Notification" },
+    { title: "Profile", icon: <CiUser />,link:"/Profile"  },
+    { title: "More", icon: <CiCircleMore />,link:"/Notification"  },
   ];
 
   const user = useCurrentUsert();
@@ -31,7 +32,7 @@ const LeftSideNav = () => {
     window.localStorage.removeItem("__twitter_token");
     window.location.reload();
   };
-
+ const routes = useRouter()
   return (
     <div
       className="
@@ -46,13 +47,13 @@ const LeftSideNav = () => {
       "
     >
       {/* Logo */}
-      <div>
+      <div >
         <div className="text-[35px] w-fit hover:bg-gray-900 p-2 rounded-full transition cursor-pointer">
           <RiTwitterXLine />
         </div>
 
         {/* Main Menu */}
-        <ul className="flex flex-col gap-2 mt-4">
+        <ul className="flex flex-col gap-2 mt-4" >
           {AllIcons.map((item) => (
             <li
               key={item.title}
@@ -65,6 +66,7 @@ const LeftSideNav = () => {
                 rounded-full 
                 transition
               "
+              onClick={()=>routes.push(`${item.link}`)}
             >
               <span className="text-[24px]">{item.icon}</span>
 
@@ -118,7 +120,7 @@ const LeftSideNav = () => {
           </div>
 
           {/* Name + Email */}
-          <div className="md:flex hidden flex-col">
+          <div className="md:flex hidden flex-col cursor-pointer" onClick={()=>routes.push("/Profile")}>
             <h1 className="text-white font-semibold">
               {user.data?.getCurrentUser?.firstName}{" "}
               {user.data?.getCurrentUser?.LastName}
@@ -144,15 +146,11 @@ const LeftSideNav = () => {
                 border-gray-500 
                 rounded-2xl 
                 p-3 
-                w-52 
+           
                 shadow-xl
               "
             >
-              <h1 className="text-white font-semibold text-sm">
-                {user.data?.getCurrentUser?.firstName}{" "}
-                {user.data?.getCurrentUser?.LastName}
-              </h1>
-
+            
               <button
                 onClick={handleLogout}
                 className="

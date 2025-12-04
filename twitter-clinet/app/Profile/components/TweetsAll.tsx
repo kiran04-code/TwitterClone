@@ -1,4 +1,5 @@
-import Image from 'next/image'
+import { useCurrentUsert } from '@/hooks/user'
+import Image from 'next/image';
 import React from 'react'
 import { MdVerified } from "react-icons/md"
 import { FaRegMessage } from "react-icons/fa6";
@@ -6,28 +7,23 @@ import { FiShare } from "react-icons/fi";
 import { CiBookmark } from "react-icons/ci";
 import { GiSelfLove } from "react-icons/gi";
 import { FaRetweet } from "react-icons/fa6";
-import { AiOutlineBarChart } from "react-icons/ai";
-import { useCurrentUsert } from '@/hooks/user';
-import { graphqlClient } from '@/ApiServer/api';
-import { AllTwets } from '@/hooks/Tweets';
-const Card = () => {
-    const { tweets } = AllTwets()
-    console.log(tweets)
-    const { user } = useCurrentUsert()
+import { AiOutlineBarChart } from "react-icons/ai";;
+const TweetsAll = () => {
+    const { user } = useCurrentUsert();
     return (
         <div>
             {
-                tweets?.map((i) => (
+                user?.tweets?.map((i) => (
                     <div key={i?.id} className="w-full flex flex-col border-b border-gray-700 p-4 gap-3 hover:bg-[#0b0b0f] ">
 
 
                         <div className="flex items-center gap-3">
 
                             <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
-                                {i && i.author && <Image
-                                    src={i.author?.profileImage || ""}
-                                    width={350}
-                                    height={350}
+                                {i && user && <Image
+                                    src={user?.profileImage || ""}
+                                    width={450}
+                                    height={450}
                                     alt="Profile Image"
                                     className='rounded-full  shadow-2xl'
                                 />}
@@ -35,7 +31,7 @@ const Card = () => {
 
                             <div className="flex flex-col">
                                 <div className="flex items-center gap-1 text-base font-semibold">
-                                    <h1 className="uppercase">{i?.author?.firstName} {i?.author?.LastName}</h1>
+                                    <h1 className="uppercase">{user?.firstName} {user?.LastName}</h1>
                                     <MdVerified className="text-blue-400 text-lg" />
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-500 text-sm">
@@ -50,15 +46,15 @@ const Card = () => {
                         </p>
 
 
-                        <div className="rounded-2xl overflow-hidden border border-gray-600">
+                        <div className="rounded-2xl h-100 overflow-hidden border border-gray-600">
                             {
                                 i?.imageUrl && <Image
-                                src={i?.imageUrl}
-                                alt="post media"
-                                className="w-full object-cover"
-                                width={450}
-                                height={450}
-                            />
+                                    src={i?.imageUrl}
+                                    alt="post media"
+                                    className="w-full object-cover"
+                                    width={250}
+                                    height={250}
+                                />
                             }
                         </div>
 
@@ -79,4 +75,4 @@ const Card = () => {
     )
 }
 
-export default Card
+export default TweetsAll

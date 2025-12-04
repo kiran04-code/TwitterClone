@@ -9,11 +9,10 @@ export const CreateTweets = ()=>{
 
  const mutaion = useMutation({
     mutationFn:(payload:CreateTweetData)=>graphqlClient.request(CreateTweetDocument,{ payload }),
-    onMutate:()=>toast.loading("Creating Tweet",{id:"1"}),
-    onSuccess:async()=>{
-      await queryClinet.invalidateQueries(["all-feed"])
-        toast.success("Creating sucessfull",{id:"1"})
-    }
+    onMutate:()=>toast.loading("Creating Tweet",),
+    onSuccess:()=> queryClinet.invalidateQueries(["all-feed"])
+      
+    
  })
  return mutaion;
 }

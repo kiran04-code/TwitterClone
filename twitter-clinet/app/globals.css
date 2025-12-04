@@ -30,16 +30,12 @@ body {
 }
 
 /* Hide scrollbar for Chrome, Safari */
-body::-webkit-scrollbar {
+/* Hide scrollbar for Chrome, Safari and Edge */
+::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for Firefox */
 body {
   scrollbar-width: none;
-}
-
-/* Hide scrollbar for Edge/IE */
-body {
-  -ms-overflow-style: none;
 }
