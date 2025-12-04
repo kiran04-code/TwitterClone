@@ -68,7 +68,7 @@ const Profile = () => {
                     <FaCalendarAlt />
                     <p>Joined  November 2025</p>
                 </div>
-                <p>1 <span className="text-gray-600 text-xl">Follower</span> 0 <span className="text-gray-600 text-xl">Followeres</span></p>
+                <p>{user?.follower?.length} <span className="text-gray-600 text-xl">Follower</span> {user?.following?.length} <span className="text-gray-600 text-xl">Followeres</span></p>
             </div>
             <div className="px-7 mt-5 text-xl  w-full py-3 border-b-2 border-slate-500 ">
                 <h1 className="underline underline-offset-11 decoration-4  decoration-blue-600">Posts</h1>
