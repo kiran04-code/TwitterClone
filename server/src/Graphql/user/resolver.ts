@@ -61,8 +61,12 @@ const queries = {
     if (!Id) return null
     const UserData = await prisma.user.findUnique({ where: { id: Id } })
     return UserData
+  },
+  getUserById: async (parent: any, { id }: { id: string }, ctx: GraphqlContext)=>{
+    if (!ctx.user) throw new Error("Your is not Authenticated")
+    const User = await prisma.user.findMany({where:{id:id}})
+    return User
   }
-
 };
 
 const mutation = {
@@ -82,19 +86,23 @@ const extraResolver2 = {
     tweets: async (parent: user) => {
       return await prisma.tweet.findMany({ where: { authorId: parent.id } })
     },
-    follower: async(parent: user) => {
-      const  result = await prisma.followes.findMany({ where: { following:{ id:parent.id }  } ,include:{
-        follower:true,
-        following:true
-      } })
-      return result.map(e=>e.follower)
+    follower: async (parent: user) => {
+      const result = await prisma.followes.findMany({
+        where: { following: { id: parent.id } }, include: {
+          follower: true,
+          following: true
+        }
+      })
+      return result.map(e => e.follower)
     },
-    following: async(parent: user) => {
-    const result = await  prisma.followes.findMany({ where: { follower:{id:parent.id }},include:{
-      follower:true,
-      following:true
-    } })
-    return result.map(e=>e.following)
+    following: async (parent: user) => {
+      const result = await prisma.followes.findMany({
+        where: { follower: { id: parent.id } }, include: {
+          follower: true,
+          following: true
+        }
+      })
+      return result.map(e => e.following)
     }
   }
 }

@@ -18,7 +18,7 @@ const FollowerPage = () => {
                     <h1 className="text-2xl font-bold text-white mb-3">Followers</h1>
 
                     {
-                        user.follower ? <ul>
+                          user.follower && user.follower.length ? <ul>
                             {
                                 user.follower.map((i, idx) => (
                                     <li key={idx} className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>
@@ -33,7 +33,7 @@ const FollowerPage = () => {
                                         </div>
                                         <div>
                                             <p className='text-xl '>{i?.firstName} {i?.LastName} </p>
-                                            <p className='text-[13px] text-gray-400 '>{i?.email}</p>
+                                            <p className='text-[15px] text-gray-400 '>{i?.email}</p>
                                         </div>
                                     </li>
                                 ))

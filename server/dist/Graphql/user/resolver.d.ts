@@ -34,6 +34,17 @@ export declare const resolver: {
             createdAt: Date;
             updatedAt: Date;
         } | null>;
+        getUserById: (parent: any, { id }: {
+            id: string;
+        }, ctx: GraphqlContext) => Promise<{
+            id: string;
+            firstName: string;
+            LastName: string | null;
+            email: string;
+            profileImage: string;
+            createdAt: Date;
+            updatedAt: Date;
+        }[]>;
     };
     Mutation: {
         followUser: (parent: any, { to }: {

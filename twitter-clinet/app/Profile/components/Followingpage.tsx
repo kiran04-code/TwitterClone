@@ -18,7 +18,7 @@ const Followingpage = () => {
                     <h1 className="text-2xl font-bold text-white mb-3">Following</h1>
 
                     {
-                        user.following ? <ul>
+                        user.following && user.following.length > 0 ? <ul>
                             {
                                 user.following.map((i, idx) => (
                                     <li key={idx} className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>

@@ -1,5 +1,35 @@
 import { graphql } from "../../src/gql";  // ✅ from generated client
-
+export const getCurrentUserByIdQuery = graphql(
+  `#graphql 
+    query GetUserById($id:ID!){
+      getUserById(id:$id) {
+        id,
+        firstName,
+        LastName,
+        email,
+        profileImage,
+        tweets {
+             id
+             textContent
+             imageUrl
+    
+           }
+       follower{
+         firstName
+         LastName
+         email
+        profileImage
+         }
+      following{
+        firstName
+        LastName
+       email
+       profileImage
+        }
+      }
+    }
+  `
+)
 export const VerifedUserGoogleTokenQuery = graphql(`
   #graphql
   query VerifedUserGoogleToken($token: String!) {

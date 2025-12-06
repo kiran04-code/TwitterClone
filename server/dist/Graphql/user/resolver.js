@@ -39,6 +39,12 @@ const queries = {
             return null;
         const UserData = await prisma.user.findUnique({ where: { id: Id } });
         return UserData;
+    },
+    getUserById: async (parent, { id }, ctx) => {
+        if (!ctx.user)
+            throw new Error("Your is not Authenticated");
+        const User = await prisma.user.findMany({ where: { id: id } });
+        return User;
     }
 };
 const mutation = {
@@ -61,17 +67,21 @@ const extraResolver2 = {
             return await prisma.tweet.findMany({ where: { authorId: parent.id } });
         },
         follower: async (parent) => {
-            const result = await prisma.followes.findMany({ where: { following: { id: parent.id } }, include: {
+            const result = await prisma.followes.findMany({
+                where: { following: { id: parent.id } }, include: {
                     follower: true,
                     following: true
-                } });
+                }
+            });
             return result.map(e => e.follower);
         },
         following: async (parent) => {
-            const result = await prisma.followes.findMany({ where: { follower: { id: parent.id } }, include: {
+            const result = await prisma.followes.findMany({
+                where: { follower: { id: parent.id } }, include: {
                     follower: true,
                     following: true
-                } });
+                }
+            });
             return result.map(e => e.following);
         }
     }
