@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { useCurrentUsert } from "@/hooks/user";
@@ -8,14 +8,17 @@ import { FaCalendarAlt } from "react-icons/fa"
 import { MdVerified } from "react-icons/md"
 import Image from "next/image";
 import Feeds from "@/components/Feed/Feeds";
+import FollowerPage from "./FollowerPage";
+import Followingpage from "./Followingpage";
 const AllTwets = React.lazy(()=>import ("./TweetsAll"))
 
 const Profile = () => {
     const { user } = useCurrentUsert();
     const router = useRouter();
-
+    const [follwerShow,setFollerShow] = useState(false)
+    const [follweingShow,setFollowingShow] = useState(false)
     return (
-        <div className="md:col-span-6 col-span-6 overflow-auto border-l border-r border-gray-600 h-full w-full">
+        <div onClick={()=>{setFollerShow(false),setFollowingShow(false)}}  className="md:col-span-6 col-span-6 overflow-auto border-l border-r border-gray-600 h-full w-full">
             {/* Top Section */}
             <div className="p-2 border-b border-gray-600 ">
                 <div className="flex justify-between items-center text-xl">
@@ -68,7 +71,7 @@ const Profile = () => {
                     <FaCalendarAlt />
                     <p>Joined  November 2025</p>
                 </div>
-                <p>{user?.follower?.length} <span className="text-gray-600 text-xl">Follower</span> {user?.following?.length} <span className="text-gray-600 text-xl">Followeres</span></p>
+                <p>{user?.follower?.length} <span className="text-gray-600 text-xl  hover:underline cursor-pointer" onClick={(e)=>{e.stopPropagation(), setFollowingShow(false), setFollerShow(!follwerShow)}} >Follower</span>  {user?.following?.length} <span className="text-gray-600 text-xl  hover:underline cursor-pointer  " onClick={(e)=>{e.stopPropagation(), setFollerShow(false),    setFollowingShow(!follweingShow)}}   >Following</span></p>
             </div>
             <div className="px-7 mt-5 text-xl  w-full py-3 border-b-2 border-slate-500 ">
                 <h1 className="underline underline-offset-11 decoration-4  decoration-blue-600">Posts</h1>
@@ -80,6 +83,8 @@ const Profile = () => {
                     </Suspense>
                 </div>
             </div>
+            {follwerShow ?<FollowerPage/>:null}
+            {follweingShow ?<Followingpage/>:null}
         </div>
     );
 };
