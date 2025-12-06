@@ -44,7 +44,7 @@ export declare const resolver: {
             profileImage: string;
             createdAt: Date;
             updatedAt: Date;
-        }[]>;
+        } | null>;
     };
     Mutation: {
         followUser: (parent: any, { to }: {

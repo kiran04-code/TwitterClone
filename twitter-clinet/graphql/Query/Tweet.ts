@@ -9,6 +9,7 @@ export const getAllTweetsQuery = graphql(
     textContent,
     imageUrl
     author{
+      id
       firstName
       LastName
       email

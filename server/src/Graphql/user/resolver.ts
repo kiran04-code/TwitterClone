@@ -64,7 +64,7 @@ const queries = {
   },
   getUserById: async (parent: any, { id }: { id: string }, ctx: GraphqlContext)=>{
     if (!ctx.user) throw new Error("Your is not Authenticated")
-    const User = await prisma.user.findMany({where:{id:id}})
+    const User = await prisma.user.findUnique({where:{id:id}})
     return User
   }
 };

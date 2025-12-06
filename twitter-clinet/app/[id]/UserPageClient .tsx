@@ -1,4 +1,7 @@
-"use client";
+
+"use client"
+
+import { UserById } from "@/hooks/user";
 import React, { Suspense, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
@@ -8,12 +11,16 @@ import { FaCalendarAlt } from "react-icons/fa"
 import { MdVerified } from "react-icons/md"
 import Image from "next/image";
 import Feeds from "@/components/Feed/Feeds";
-import FollowerPage from "./FollowerPage";
-import Followingpage from "./Followingpage";
-const AllTwets = React.lazy(()=>import ("./TweetsAll"))
+import FollowerPage from "../Profile/components/FollowerPage";
+import Followingpage from "../Profile/components/Followingpage";
 
-const Profile = () => {
-    const { user } = useCurrentUsert();
+const AllTwets = React.lazy(()=>import ("../Profile/components/TweetsAll"))
+
+const UserPageClient   = ({ id }: {id:string}) => {
+
+ const {userInfo} = UserById(id)
+
+   const { user } = useCurrentUsert();
     const router = useRouter();
     const [follwerShow,setFollerShow] = useState(false)
     const [follweingShow,setFollowingShow] = useState(false)
@@ -25,12 +32,12 @@ const Profile = () => {
                     <div className="flex gap-2 items-center">
                         <FaArrowLeft className="cursor-pointer" onClick={() => router.push("/")} />
                         <h1 className="font-bold">
-                            {user?.firstName} {user?.LastName}
+                            {userInfo?.firstName} {userInfo?.LastName}
                         </h1>
                     </div>
                     <FaSearch />
                 </div>
-                <h1 className="px-10 text-gray-400 text-sm">{user?.tweets?.length} posts</h1>
+                <h1 className="px-10 text-gray-400 text-sm">{userInfo?.tweets?.length} posts</h1>
             </div>
 
             {/* Banner + Profile Image */}
@@ -39,9 +46,9 @@ const Profile = () => {
 
                 {/* Profile Image */}
                 <div className="ml-6 w-40 h-40 z-99 rounded-full border-4 border-black -mt-20 overflow-hidden">
-                    {user?.profileImage ? (
+                    {userInfo?.profileImage ? (
                         <Image
-                            src={user.profileImage}
+                            src={userInfo.profileImage}
                             alt="Profile"
                             width={250}
                             height={250}
@@ -49,7 +56,7 @@ const Profile = () => {
                         />
                     ) : (
                         <div className="w-full h-full bg-gray-700 flex items-center justify-center text-4xl font-bold">
-                            {user?.firstName?.charAt(0) || "U"}
+                            {userInfo?.firstName?.charAt(0) || "U"}
                         </div>
                     )}
                 </div>
@@ -58,11 +65,11 @@ const Profile = () => {
             {/* User Details */}
             <div className="px-6 mt-4">
                 <div className="flex gap-5  items-center"> <h1 className="text-2xl font-bold ">
-                    {user?.firstName} {user?.LastName}
+                    {userInfo?.firstName} {userInfo?.LastName}
                 </h1>
                     <span className="text-xl  border-2 rounded-4xl px-2 py-1 flex  items-center justify-between gap-2 "> <MdVerified className="text-blue-500 text-xl" />   get Verified</span>
                 </div>
-                <p className="text-gray-400 ">@{user?.email.split("@")[0] || "username"}</p>
+                <p className="text-gray-400 ">@{userInfo?.email.split("@")[0] || "username"}</p>
             </div>
 
             {/* Bottom Section */}
@@ -71,7 +78,7 @@ const Profile = () => {
                     <FaCalendarAlt />
                     <p>Joined  November 2025</p>
                 </div>
-                <p>{user?.follower?.length} <span className="text-gray-600 text-xl  hover:underline cursor-pointer" onClick={(e)=>{e.stopPropagation(), setFollowingShow(false), setFollerShow(!follwerShow)}} >Follower</span>  {user?.following?.length} <span className="text-gray-600 text-xl  hover:underline cursor-pointer  " onClick={(e)=>{e.stopPropagation(), setFollerShow(false),    setFollowingShow(!follweingShow)}}   >Following</span></p>
+                <p>{userInfo?.follower?.length} <span className="text-gray-600 text-xl  hover:underline cursor-pointer" onClick={(e)=>{e.stopPropagation(), setFollowingShow(false), setFollerShow(!follwerShow)}} >Follower</span>  {userInfo?.following?.length} <span className="text-gray-600 text-xl  hover:underline cursor-pointer  " onClick={(e)=>{e.stopPropagation(), setFollerShow(false),    setFollowingShow(!follweingShow)}}   >Following</span></p>
             </div>
             <div className="px-7 mt-5 text-xl  w-full py-3 border-b-2 border-slate-500 ">
                 <h1 className="underline underline-offset-11 decoration-4  decoration-blue-600">Posts</h1>
@@ -79,14 +86,14 @@ const Profile = () => {
             <div>
                 <div className="px-0 h-[calc(100vh-380px)] overflow-y-auto">
                     <Suspense fallback={<div className="p-5 text-2xl">Loading...</div>}>
-                        <AllTwets user={user} />
+                        <AllTwets user={userInfo}  />
                     </Suspense>
                 </div>
             </div>
-            {follwerShow ?<FollowerPage user={user}/>:null}
-            {follweingShow ?<Followingpage user={user } />:null}
+            {follwerShow ?<FollowerPage user={userInfo}/>:null}
+            {follweingShow ?<Followingpage user={userInfo}  />:null}
         </div>
     );
 };
 
-export default Profile;
+export default UserPageClient ;

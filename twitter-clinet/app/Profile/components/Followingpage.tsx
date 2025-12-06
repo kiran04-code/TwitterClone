@@ -1,10 +1,11 @@
 import { useCurrentUsert } from '@/hooks/user'
+import { User } from '@/src/gql/graphql'
 import Image from 'next/image'
 import React from 'react'
-
-const Followingpage = () => {
-    const { user } = useCurrentUsert()
-
+interface FollowingPgaes {
+    user:User | null | undefined
+}
+const Followingpage:React.FC<FollowingPgaes> = ({user}) => {
     return (
         user && (
             <div

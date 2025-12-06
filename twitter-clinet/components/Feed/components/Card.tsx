@@ -10,9 +10,11 @@ import { AiOutlineBarChart } from "react-icons/ai";
 import { useCurrentUsert } from '@/hooks/user';
 import { graphqlClient } from '@/ApiServer/api';
 import { AllTwets } from '@/hooks/Tweets';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 const Card = () => {
     const { tweets } = AllTwets()
-    console.log(tweets)
+    const routes = useRouter()
     const { user } = useCurrentUsert()
     return (
         <div>
@@ -21,7 +23,7 @@ const Card = () => {
                     <div key={i?.id} className="w-full flex flex-col border-b border-gray-700 p-4 gap-3 hover:bg-[#0b0b0f] ">
 
 
-                        <div className="flex items-center gap-3">
+                        <Link href={`${i?.author?.id}`} className="flex  cursor-pointer items-center gap-3 hover:underline ">
 
                             <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
                                 {i && i.author && <Image
@@ -43,7 +45,7 @@ const Card = () => {
                                     <p>· 7h</p>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
 
                         <p className="text-gray-200 text-sm leading-relaxed">
                             {i?.textContent}

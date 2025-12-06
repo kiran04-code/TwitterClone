@@ -1,10 +1,13 @@
 import { useCurrentUsert } from '@/hooks/user'
+import { User } from '@/src/gql/graphql'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React from 'react'
-
-const FollowerPage = () => {
-    const { user } = useCurrentUsert()
-
+interface FollowerPageProps {
+  user: User | null | undefined
+}
+const FollowerPage:React.FC<FollowerPageProps> = ({user }) => {
+ const router = useRouter()
     return (
         user && (
             <div
@@ -18,10 +21,10 @@ const FollowerPage = () => {
                     <h1 className="text-2xl font-bold text-white mb-3">Followers</h1>
 
                     {
-                          user.follower && user.follower.length ? <ul>
+                          user.follower && user.follower.length ? <ul  >
                             {
                                 user.follower.map((i, idx) => (
-                                    <li key={idx} className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>
+                                    <li  onClick={()=>router.push(`${i?.id}`)} key={idx} className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>
                                         <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
                                             {i && i.profileImage && <Image
                                                 src={i.profileImage || ""}

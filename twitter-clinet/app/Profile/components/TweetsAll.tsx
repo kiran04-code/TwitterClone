@@ -7,9 +7,13 @@ import { FiShare } from "react-icons/fi";
 import { CiBookmark } from "react-icons/ci";
 import { GiSelfLove } from "react-icons/gi";
 import { FaRetweet } from "react-icons/fa6";
-import { AiOutlineBarChart } from "react-icons/ai";;
-const TweetsAll = () => {
-    const { user } = useCurrentUsert();
+import { AiOutlineBarChart } from "react-icons/ai"; import { User } from '@/src/gql/graphql';
+;
+interface TweetProps {
+    user: User | null | undefined
+}
+const TweetsAll: React.FC<TweetProps> = ({ user }) => {
+
     return (
         <div>
             {
