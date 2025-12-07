@@ -6,14 +6,7 @@ interface tweetsdata {
 }
 export declare const resolver: {
     query: {
-        getTweets: (parent: any, {}: {}, {}: {}, ctx: GraphqlContext) => Promise<{
-            id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            textContent: string;
-            imageUrl: string | null;
-            authorId: string;
-        }[]>;
+        getTweets: (parent: any, {}: {}, {}: {}, ctx: GraphqlContext) => Promise<any>;
     };
     mutation: {
         createTweet: (parent: any, { payload }: {

@@ -28,8 +28,8 @@ const UserPageClient = ({ id }: { id: string }) => {
     const queryclient = useQueryClient()
     const amIFollowing = useMemo(() => {
         if (!userInfo) return false;
-        return currentUser?.following?.some(el => el?.id === userInfo?.id);
-    }, [userInfo])
+        return (currentUser?.following?.findIndex(el => el?.id === userInfo?.id)?? -1)>=0
+    }, [userInfo,currentUser])
     console.log(amIFollowing)
     const router = useRouter();
     const [follwerShow, setFollerShow] = useState(false)
@@ -42,9 +42,11 @@ const UserPageClient = ({ id }: { id: string }) => {
     },[])
     const handlunFollowButton = useCallback(async()=>{
      if(!id) return toast.error("user Not Found")
-     await graphqlClient.request(unFollowUserQuery,{to:id})
+   const result =  await graphqlClient.request(unFollowUserQuery,{to:id})
+if(result){
     queryclient.invalidateQueries(["getUserByID",id])
-     toast.success("Now Your UnFollow to This User")
+    toast.success("Now Your UnFollow to This User")
+     }
     },[])
     return (
         <div onClick={() => { setFollerShow(false), setFollowingShow(false) }} className="md:col-span-6 col-span-6 overflow-auto border-l border-r border-gray-600 h-full w-full">

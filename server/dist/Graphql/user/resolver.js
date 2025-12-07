@@ -3,6 +3,7 @@ import { prisma } from "../../client/db/index.js";
 import jwtServies from "../../services/jwt.js";
 import { Prisma } from "../../generated/prisma/client.js";
 import UserService from "../../services/user.js";
+import { redisclient } from "../../client/redis/index.js";
 const queries = {
     verifedGoogleToken: async (parent, { token }) => {
         try {
@@ -49,15 +50,19 @@ const queries = {
 };
 const mutation = {
     followUser: async (parent, { to }, ctx) => {
+        const cachekey = `RECOMENDED_USER${ctx.user?.id}`;
         if (!ctx.user || !ctx.user.id)
             throw new Error("your are not authenticated");
         await UserService.followers(ctx.user.id, to);
+        await redisclient.del(cachekey);
         return true;
     },
     Unfollow: async (parent, { to }, ctx) => {
+        const cachekey = `RECOMENDED_USER${ctx.user?.id}`;
         if (!ctx.user || !ctx.user.id)
             throw new Error("your are not authenticated");
         await UserService.UnfollowUser(ctx.user.id, to);
+        await redisclient.del(cachekey);
         return true;
     },
 };
@@ -87,6 +92,11 @@ const extraResolver2 = {
         recommendedUser: async (parent, _, ctx) => {
             if (!ctx.user)
                 return [];
+            const cachedkey = `RECOMENDED_USER${ctx.user.id}`;
+            const catchdata = await redisclient.get(cachedkey);
+            if (catchdata) {
+                return JSON.parse(catchdata);
+            }
             const following = await prisma.followes.findMany({
                 where: {
                     follower: { id: ctx.user.id }
@@ -96,11 +106,12 @@ const extraResolver2 = {
             const userToRecommded = [];
             for (const followings of following) {
                 for (const followingpfFollowedUder of followings.following.follower) {
-                    if (followingpfFollowedUder.following.id !== ctx.user.id && following.findIndex(e => e.followingId === followingpfFollowedUder.following.id)) {
+                    if (followingpfFollowedUder.following.id !== ctx.user.id && following.findIndex(e => e.followingId === followingpfFollowedUder.following.id) === -1) {
                         userToRecommded.push(followingpfFollowedUder.following);
                     }
                 }
             }
+            await redisclient.set(cachedkey, JSON.stringify(userToRecommded));
             return userToRecommded;
         }
     }
