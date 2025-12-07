@@ -93,14 +93,15 @@ const extraResolver2 = {
                 },
                 include: { following: { include: { follower: { include: { following: true } } } }, },
             });
+            const userToRecommded = [];
             for (const followings of following) {
                 for (const followingpfFollowedUder of followings.following.follower) {
                     if (followingpfFollowedUder.following.id !== ctx.user.id && following.findIndex(e => e.followingId === followingpfFollowedUder.following.id)) {
-                        console.log(following);
+                        userToRecommded.push(followingpfFollowedUder.following);
                     }
                 }
             }
-            return [];
+            return userToRecommded;
         }
     }
 };

@@ -64,7 +64,15 @@ export declare const User: {
                     createdAt: Date;
                     updatedAt: Date;
                 }[]>;
-                recommendedUser: (parent: import("../../generated/prisma/client.js").user, _: any, ctx: import("../../interface.js").GraphqlContext) => Promise<never[]>;
+                recommendedUser: (parent: import("../../generated/prisma/client.js").user, _: any, ctx: import("../../interface.js").GraphqlContext) => Promise<{
+                    id: string;
+                    firstName: string;
+                    LastName: string | null;
+                    email: string;
+                    profileImage: string;
+                    createdAt: Date;
+                    updatedAt: Date;
+                }[]>;
             };
         };
     };

@@ -82,7 +82,15 @@ export declare const resolver: {
                 createdAt: Date;
                 updatedAt: Date;
             }[]>;
-            recommendedUser: (parent: user, _: any, ctx: GraphqlContext) => Promise<never[]>;
+            recommendedUser: (parent: user, _: any, ctx: GraphqlContext) => Promise<{
+                id: string;
+                firstName: string;
+                LastName: string | null;
+                email: string;
+                profileImage: string;
+                createdAt: Date;
+                updatedAt: Date;
+            }[]>;
         };
     };
 };

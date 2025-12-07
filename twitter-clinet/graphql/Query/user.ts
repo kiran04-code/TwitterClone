@@ -68,7 +68,16 @@ export const getCurrentUserQuery = graphql(
        email
        profileImage
         }
+    recommendedUser{
+        id
+        firstName
+        LastName
+       email
+       profileImage
+    }
+
       }
     }
   `
 )
+
