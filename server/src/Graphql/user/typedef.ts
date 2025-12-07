@@ -8,5 +8,6 @@ type User {
  tweets:[Tweet]
  follower:[User]
  following:[User]
+ recommendedUser:[User]
 }
 `

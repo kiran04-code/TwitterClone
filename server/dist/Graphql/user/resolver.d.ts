@@ -82,6 +82,7 @@ export declare const resolver: {
                 createdAt: Date;
                 updatedAt: Date;
             }[]>;
+            recommendedUser: (parent: user, _: any, ctx: GraphqlContext) => Promise<never[]>;
         };
     };
 };

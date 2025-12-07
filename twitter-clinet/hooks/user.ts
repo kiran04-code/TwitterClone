@@ -20,7 +20,6 @@ export const UserById = (id: string) => {
             console.log(data.getUserById)
             return data.getUserById
         },
-       
     })  
     return { ...query, userInfo:query.data}
 }

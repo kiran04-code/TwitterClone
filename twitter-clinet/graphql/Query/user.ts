@@ -15,12 +15,14 @@ export const getCurrentUserByIdQuery = graphql(
     
            }
        follower{
+        id
          firstName
          LastName
          email
         profileImage
          }
       following{
+        id
         firstName
         LastName
        email
@@ -53,12 +55,14 @@ export const getCurrentUserQuery = graphql(
     
            }
        follower{
-         firstName
+        id      
+           firstName
          LastName
          email
         profileImage
          }
       following{
+        id
         firstName
         LastName
        email

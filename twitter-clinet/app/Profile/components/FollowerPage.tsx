@@ -1,19 +1,18 @@
 import { useCurrentUsert } from '@/hooks/user'
 import { User } from '@/src/gql/graphql'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 interface FollowerPageProps {
-  user: User | null | undefined
+    user: User | null | undefined
 }
-const FollowerPage:React.FC<FollowerPageProps> = ({user }) => {
- const router = useRouter()
+const FollowerPage: React.FC<FollowerPageProps> = ({ user }) => {
+    const router = useRouter()
     return (
         user && (
             <div
-                className="fixed inset-0 bg-black/50 flex justify-center items-center p-4 z-50"
-                onClick={() => console.log("Backdrop clicked")}
-            >
+                className="fixed inset-0 bg-black/50 flex justify-center items-center p-4 z-99">
                 <div
                     className="bg-white/20 backdrop-blur-xl p-4 w-full max-w-md rounded-2xl shadow-xl"
                     onClick={(e) => e.stopPropagation()}
@@ -21,10 +20,10 @@ const FollowerPage:React.FC<FollowerPageProps> = ({user }) => {
                     <h1 className="text-2xl font-bold text-white mb-3">Followers</h1>
 
                     {
-                          user.follower && user.follower.length ? <ul  >
+                        user.follower && user.follower.length ? <ul  >
                             {
                                 user.follower.map((i, idx) => (
-                                    <li  onClick={()=>router.push(`${i?.id}`)} key={idx} className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>
+                                    <Link href={`/${i?.id}`}  key={idx} className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>
                                         <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
                                             {i && i.profileImage && <Image
                                                 src={i.profileImage || ""}
@@ -33,12 +32,13 @@ const FollowerPage:React.FC<FollowerPageProps> = ({user }) => {
                                                 alt="Profile Image"
                                                 className='rounded-full  shadow-2xl'
                                             />}
+                                            
                                         </div>
                                         <div>
                                             <p className='text-xl '>{i?.firstName} {i?.LastName} </p>
                                             <p className='text-[15px] text-gray-400 '>{i?.email}</p>
                                         </div>
-                                    </li>
+                                    </Link>
                                 ))
                             }
                         </ul> :

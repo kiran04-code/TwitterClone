@@ -1,6 +1,7 @@
 import { useCurrentUsert } from '@/hooks/user'
 import { User } from '@/src/gql/graphql'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 interface FollowingPgaes {
     user:User | null | undefined
@@ -9,7 +10,7 @@ const Followingpage:React.FC<FollowingPgaes> = ({user}) => {
     return (
         user && (
             <div
-                className="fixed inset-0 bg-black/50 flex justify-center items-center p-4 z-50"
+                className="fixed inset-0 bg-black/50 z-99 flex justify-center items-center p-4 z-50"
                 onClick={() => console.log("Backdrop clicked")}
             >
                 <div
@@ -22,7 +23,7 @@ const Followingpage:React.FC<FollowingPgaes> = ({user}) => {
                         user.following && user.following.length > 0 ? <ul>
                             {
                                 user.following.map((i, idx) => (
-                                    <li key={idx} className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>
+                                    <Link key={idx} href={`/${i?.id}`}  className='cursor-pointer  hover:bg-gray-500  p-2 rounded-2xl  transition flex gap-1'>
                                         <div className="rounded-full w-10 h-10 flex items-center justify-center font-bold text-black">
                                             {i && i.profileImage && <Image
                                                 src={i.profileImage || ""}
@@ -36,7 +37,7 @@ const Followingpage:React.FC<FollowingPgaes> = ({user}) => {
                                             <p className='text-xl '>{i?.firstName} {i?.LastName} </p>
                                             <p className='text-[13px] text-gray-400 '>{i?.email}</p>
                                         </div>
-                                    </li>
+                                    </Link>
                                 ))
                             }
                         </ul> :<div className="space-y-2 text-white"> <p>No following yet</p></div>

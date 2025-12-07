@@ -12,6 +12,7 @@ export default async function page({ params }: Props) {
 
   return (
     <div className="p-4">
+      
       <ReactQueryProvider>
         <UserPageClient id={id} />
       </ReactQueryProvider>

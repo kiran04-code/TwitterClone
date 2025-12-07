@@ -8,6 +8,7 @@ type User {
  tweets:[Tweet]
  follower:[User]
  following:[User]
+ recommendedUser:[User]
 }
 `;
 //# sourceMappingURL=typedef.js.map

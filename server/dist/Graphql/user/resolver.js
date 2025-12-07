@@ -83,6 +83,24 @@ const extraResolver2 = {
                 }
             });
             return result.map(e => e.following);
+        },
+        recommendedUser: async (parent, _, ctx) => {
+            if (!ctx.user)
+                return [];
+            const following = await prisma.followes.findMany({
+                where: {
+                    follower: { id: ctx.user.id }
+                },
+                include: { following: { include: { follower: { include: { following: true } } } }, },
+            });
+            for (const followings of following) {
+                for (const followingpfFollowedUder of followings.following.follower) {
+                    if (followingpfFollowedUder.following.id !== ctx.user.id && following.findIndex(e => e.followingId === followingpfFollowedUder.following.id)) {
+                        console.log(following);
+                    }
+                }
+            }
+            return [];
         }
     }
 };

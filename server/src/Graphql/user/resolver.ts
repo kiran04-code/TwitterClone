@@ -62,9 +62,9 @@ const queries = {
     const UserData = await prisma.user.findUnique({ where: { id: Id } })
     return UserData
   },
-  getUserById: async (parent: any, { id }: { id: string }, ctx: GraphqlContext)=>{
+  getUserById: async (parent: any, { id }: { id: string }, ctx: GraphqlContext) => {
     if (!ctx.user) throw new Error("Your is not Authenticated")
-    const User = await prisma.user.findUnique({where:{id:id}})
+    const User = await prisma.user.findUnique({ where: { id: id } })
     return User
   }
 };
@@ -103,6 +103,28 @@ const extraResolver2 = {
         }
       })
       return result.map(e => e.following)
+    },
+    recommendedUser: async (parent: user, _: any, ctx: GraphqlContext) => {
+      if (!ctx.user) return []
+      const following = await prisma.followes.findMany(
+        {
+          where:
+          {
+            follower:
+              { id: ctx.user.id }
+          },
+          include:
+            { following: { include: { follower: { include: { following: true } } } }, }
+          ,
+        })
+      for (const followings of following) {
+        for (const followingpfFollowedUder of followings.following.follower) {
+          if (followingpfFollowedUder.following.id !==ctx.user.id && following.findIndex(e => e.followingId === followingpfFollowedUder.following.id)) {
+            console.log(following)
+          }
+        }
+      }
+      return []
     }
   }
 }
