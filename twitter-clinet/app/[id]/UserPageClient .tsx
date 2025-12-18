@@ -37,14 +37,18 @@ const UserPageClient = ({ id }: { id: string }) => {
     const handleFollowButton = useCallback(async()=>{
      if(!id) return toast.error("user Not Found")
      await graphqlClient.request(FollowUserQuery,{to:id})
-    queryclient.invalidateQueries(["getUserByID",id])
+    queryclient.invalidateQueries({
+        queryKey:["getUserByID",id]
+    })
      toast.success("Now Your Following")
     },[])
     const handlunFollowButton = useCallback(async()=>{
      if(!id) return toast.error("user Not Found")
    const result =  await graphqlClient.request(unFollowUserQuery,{to:id})
 if(result){
-    queryclient.invalidateQueries(["getUserByID",id])
+    queryclient.invalidateQueries({
+        queryKey:["getUserByID",id]
+    })
     toast.success("Now Your UnFollow to This User")
      }
     },[])

@@ -20,7 +20,9 @@ const LoginLeft = () => {
                  toast.error("Token Not Found")
             }else{
                  window.localStorage.setItem("__twitter_token", verifedGoogleToken) 
-                await querryClient.invalidateQueries(["current-user"])
+                await querryClient.invalidateQueries({
+                    queryKey:["current-user"]
+                })
                 window.location.reload()
                 toast.success("verified Success")
             }
