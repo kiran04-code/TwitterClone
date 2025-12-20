@@ -12,7 +12,7 @@ import { AiOutlineBarChart } from "react-icons/ai"; import { User } from '@/src/
 interface TweetProps {
     user: User | null | undefined
 }
-const TweetsAll: React.FC<TweetProps> = ({ user }) => {
+const TweetsAll: React.FC<TweetProps > = ({ user }) => {
 
     return (
         <div>

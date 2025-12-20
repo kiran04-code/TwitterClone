@@ -18,7 +18,7 @@ const LeftSideNav = () => {
     { title: "Home", icon: <GoHome /> ,link:"/"},
     { title: "Explore", icon: <CiSearch /> , link:"/Explore"},
     { title: "Notification", icon: <MdNotificationsNone />,link:"/Notification" },
-    { title: "Messages", icon: <FaFacebookMessenger /> ,link:"/Notification"  },
+    { title: "Messages", icon: <FaFacebookMessenger /> ,link:"/Message"  },
     { title: "Communities", icon: <FaUserGroup />,link:"/Notification"  },
     { title: "Bookmark", icon: <FaRegBookmark /> ,link:"/Notification" },
     { title: "Profile", icon: <CiUser />,link:"/Profile"  },

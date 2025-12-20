@@ -70,12 +70,24 @@ export const getCurrentUserQuery = graphql(
         }
     recommendedUser{
         id
-        firstName
-        LastName
-       email
-       profileImage
+     
     }
-
+         sender {
+      receiver {
+        id,
+    
+      }
+      text
+    }
+     receiver {
+      text
+      sender {
+        id,
+        email,
+        LastName,
+        firstName
+      }
+    }
       }
     }
   `

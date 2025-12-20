@@ -31,7 +31,7 @@ const Wtofollow = () => {
                                     <div className='flex  gap-2 items-center'>
                                         <h1>{Iterator?.firstName} {Iterator?.LastName}  </h1><MdVerified className='text-blue-400' />
                                     </div>
-                                    <p className='text-gray-600 '>@{Iterator?.email.split("@")[0]}</p>
+                                    <p className='text-gray-600 '>@{Iterator?.email?.split("@")[0]}</p>
                                 </div>
                                 <div className='flex flex-col justify-center items-center '>
                                     <div className='bg-white cursor-pointer flex rounded-full px-4 py-2 font-semibold text-black justify-center items-center' onClick={()=>routes.push(`${Iterator?.id}`)}>View</div>

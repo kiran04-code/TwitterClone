@@ -1,10 +1,10 @@
 import { graphqlClient } from "@/ApiServer/api"
 import { getCurrentUserByIdQuery, getCurrentUserQuery } from "@/graphql/Query/user"
-import { User } from "@/src/gql/graphql"
+import { GetCurrentUserQuery, User } from "@/src/gql/graphql"
 import { useQuery } from "@tanstack/react-query"
 
 export const useCurrentUsert = () => {
-    const query = useQuery({
+    const query = useQuery<GetCurrentUserQuery>({
         queryKey: ["current-user"],
         queryFn: () => graphqlClient.request(getCurrentUserQuery)
 
@@ -17,7 +17,7 @@ export const UserById = (id: string) => {
         queryKey: ["getUserByID", id],
         queryFn:  async() => {
             const data = await  graphqlClient.request(getCurrentUserByIdQuery,{ id:id })
-            console.log(data.getUserById)
+
             return data.getUserById
         },
     })  
