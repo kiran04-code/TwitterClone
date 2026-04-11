@@ -9,7 +9,7 @@ import { useCurrentUsert } from '@/hooks/user'
 
 const RightsideFeed = () => {
    const user = useCurrentUsert()
-   const Api_key = "uMhmjknx9eGIgpyQdLa3VekNmPc"
+   const Api_key = process.env.RIGHTSIDEFEED_HIGH_ENTROPY_VALUE
    return (
       <div className='col-span-3'>
          <SearchBar />
@@ -27,4 +27,5 @@ const RightsideFeed = () => {
 }
 
 export default RightsideFeed
+
 
