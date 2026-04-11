@@ -8,6 +8,7 @@ import { useCurrentUsert } from '@/hooks/user'
 
 const RightsideFeed = () => {
    const user = useCurrentUsert()
+   const Api_key = "uMhmjknx9eGIgpyQdLa3VekNmPc"
    return (
       <div className='col-span-3'>
          <SearchBar />
